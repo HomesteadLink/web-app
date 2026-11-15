@@ -16,7 +16,11 @@ product as the Android app, on a second control path.
   "Web app — USB control (WebUSB)". Wireframe SVGs are the source and
   live in `docs/wireframes/` (PNG renders are never committed).
 - **Design doc:** Notion (Stage 2 of the USB pipeline).
-- **Status:** PRD done (Stage 1). Implementation follows the design doc.
+- **Status:** Live (Stage 4, 2026-11-15). `index.html` at
+  https://homesteadlink.github.io/web-app/ — verified HTTP 200, served
+  bytes identical to the repo file. All 6 screens verified by
+  headless-Chrome screenshots (0 console errors). Firmware v1.4.0
+  (FunctionFS USB daemon) building; flash + end-to-end test is Stage 5.
 
 ## Layout (Stage 4)
 
