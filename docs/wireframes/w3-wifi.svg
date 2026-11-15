@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+<rect x="0" y="0" width="1280" height="800" fill="#FFFFFF"/>
+<rect x="0" y="0" width="1280" height="800" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+<rect x="0" y="0" width="1280" height="36" fill="#E5E7EB"/>
+<circle cx="16" cy="18" r="6" fill="#FCA5A5"/><circle cx="36" cy="18" r="6" fill="#FDE68A"/><circle cx="56" cy="18" r="6" fill="#86EFAC"/>
+<rect x="76" y="6" width="220" height="26" rx="8" fill="#FFFFFF"/>
+<text x="88" y="24" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#111827" text-anchor="start">HomeSteadyLink — Setup</text>
+<text x="284" y="24" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#6B7280" text-anchor="start">×</text>
+<rect x="0" y="36" width="1280" height="40" fill="#F3F4F6"/>
+<rect x="76" y="44" width="620" height="26" rx="13" fill="#FFFFFF" stroke="#E5E7EB"/>
+<g stroke="#15803D" stroke-width="2" fill="none"><rect x="91" y="57" width="14" height="10" rx="2" fill="#15803D" stroke="none"/><path d="M94 57 V54 a4 4 0 0 1 8 0 V57"/></g>
+<text x="112" y="62" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#111827" text-anchor="start">https://homesteadlink.github.io/web-app/</text>
+<text x="712" y="62" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="start">WebUSB</text>
+<text x="1120" y="18" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="end">W3 — Wi-Fi</text>
+<rect x="0" y="76" width="1280" height="724" fill="#F9FAFB"/>
+<g stroke="#0F766E" stroke-width="2" fill="none" stroke-linecap="round"><rect x="283" y="112" width="18" height="8" rx="2" fill="#0F766E" stroke="none"/><line x1="288" y1="112" x2="288" y2="105"/><line x1="296" y1="112" x2="296" y2="105"/><circle cx="288" cy="104" r="1.6" fill="#0F766E" stroke="none"/><circle cx="296" cy="104" r="1.6" fill="#0F766E" stroke="none"/><circle cx="289" cy="116" r="1.3" fill="#fff" stroke="none"/><circle cx="295" cy="116" r="1.3" fill="#fff" stroke="none"/></g>
+<text x="312" y="117" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#111827" text-anchor="start">HomeSteadyLink</text>
+<text x="1000" y="117" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="end">Step 3 of 5 · Wi-Fi</text>
+<text x="280" y="158" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#111827" text-anchor="start">Connect the router to Wi-Fi</text>
+<text x="280" y="182" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">These are the networks the router can see from where it sits.</text>
+<text x="280" y="209" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">Networks near the router (3)</text>
+<text x="1000" y="209" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="end">Scan again</text>
+<rect x="280" y="218" width="720" height="58" rx="10" fill="#EFF6F6" stroke="#0F766E" stroke-width="1"/>
+<g stroke="#0F766E" stroke-width="2" fill="none" stroke-linecap="round"><path d="M299 243 Q308 235 317 243"/><path d="M302 247 Q308 241 314 247"/><circle cx="308" cy="251" r="1.8" fill="#0F766E" stroke="none"/></g>
+<text x="332" y="242" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">HomeNet-5G</text>
+<text x="332" y="262" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start">−52 dBm · 5 GHz · Secured</text>
+<g><circle cx="972" cy="246" r="10" fill="#15803D"/><path d="M967 246 L971 250 L977 242" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></g>
+<rect x="280" y="284" width="720" height="58" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+<g stroke="#6B7280" stroke-width="2" fill="none" stroke-linecap="round"><path d="M299 309 Q308 301 317 309"/><path d="M302 313 Q308 307 314 313"/><circle cx="308" cy="317" r="1.8" fill="#6B7280" stroke="none"/></g>
+<text x="332" y="308" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">Hotel_Guest</text>
+<text x="332" y="328" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start">−67 dBm · 2.4 GHz · Open</text>
+<rect x="280" y="350" width="720" height="58" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+<g stroke="#6B7280" stroke-width="2" fill="none" stroke-linecap="round"><path d="M299 375 Q308 367 317 375"/><path d="M302 379 Q308 373 314 379"/><circle cx="308" cy="383" r="1.8" fill="#6B7280" stroke="none"/></g>
+<text x="332" y="374" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">CoffeeShop</text>
+<text x="332" y="394" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start">−74 dBm · 5 GHz · Secured</text>
+<text x="280" y="434" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start">Wi-Fi password for HomeNet-5G</text>
+<rect x="280" y="438" width="720" height="46" rx="8" fill="#FFFFFF" stroke="#9CA3AF" stroke-width="1"/>
+<text x="292" y="468" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">••••••••••</text>
+<rect x="280" y="486" width="18" height="18" rx="4" fill="#FFFFFF" stroke="#9CA3AF" stroke-width="1"/>
+<text x="306" y="500" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Open network (no password)</text>
+<text x="280" y="530" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#111827" text-anchor="start">Advanced</text>
+<text x="1000" y="530" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#0F766E" text-anchor="end">Show</text>
+<rect x="280" y="542" width="18" height="18" rx="4" fill="#FFFFFF" stroke="#9CA3AF" stroke-width="1"/>
+<text x="306" y="556" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#111827" text-anchor="start">Hidden network (type the name — it isn't broadcast)</text>
+<text x="280" y="582" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start">Country</text>
+<rect x="280" y="586" width="90" height="40" rx="8" fill="#FFFFFF" stroke="#9CA3AF" stroke-width="1"/>
+<text x="292" y="612" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">US</text>
+<text x="384" y="612" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Prefilled from this computer's locale — almost nobody changes it.</text>
+<rect x="280" y="632" width="260" height="52" rx="24" fill="#0F766E" stroke="#0F766E" stroke-width="1"/>
+<text x="410.0" y="663.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Connect to Wi-Fi</text>
+<text x="280" y="707" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Nothing is written to the router yet — Connect sends Wi-Fi + VPN together on the next step.</text>
+</svg>

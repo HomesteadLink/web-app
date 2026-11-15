@@ -1,0 +1,16 @@
+{
+  "flow-web": "file-upload://419ac25e-b49f-8176-91e9-00b29299f6fb",
+  "w1-connect": "file-upload://419ac25e-b49f-81f8-be30-00b250e9f7ca",
+  "w1-unsupported": "file-upload://419ac25e-b49f-8148-8ca7-00b20e22e996",
+  "w1-denied": "file-upload://419ac25e-b49f-81b3-be70-00b2b5b065a5",
+  "w2-pair": "file-upload://419ac25e-b49f-81ea-be5c-00b29a96d367",
+  "w2-pair-error": "file-upload://419ac25e-b49f-8124-b474-00b260b2e13d",
+  "w3-wifi": "file-upload://419ac25e-b49f-819e-a238-00b291ce0c15",
+  "w3-wifi-empty": "file-upload://419ac25e-b49f-811c-a7a7-00b22ed1fc99",
+  "w4-vpn": "file-upload://419ac25e-b49f-81a5-a106-00b2cab55404",
+  "w5-progress": "file-upload://419ac25e-b49f-81d7-a8fd-00b22da94858",
+  "w5-error": "file-upload://419ac25e-b49f-818e-8614-00b23216c6c1",
+  "w6-device": "file-upload://419ac25e-b49f-8130-8e8c-00b2dee324c3",
+  "o1-confirm": "file-upload://419ac25e-b49f-811d-8c78-00b235b7d78e",
+  "o2-logs": "file-upload://419ac25e-b49f-81e6-91d4-00b25287c23d"
+}
