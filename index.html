@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HomeSteadyLink — Setup</title>
+<style>
+  :root { --teal:#0F766E; --dark:#111827; --gray:#6B7280; --line:#E5E7EB;
+          --green:#15803D; --green-bg:#DCFCE7; --red:#DC2626; --amber:#B45309;
+          --amber-bg:#FEF3C7; --slate:#475569; --page:#F9FAFB; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--page); color:var(--dark); }
+  .col { max-width:720px; margin:0 auto; padding:32px 16px 64px; }
+  header { display:flex; align-items:baseline; justify-content:space-between; }
+  .brand { font-size:20px; font-weight:bold; }
+  .step { font-size:13px; color:var(--gray); }
+  h1 { font-size:24px; margin:16px 0 4px; }
+  .sub { color:var(--gray); font-size:14px; margin:0 0 20px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px 24px; margin-bottom:16px; }
+  .card h2 { font-size:17px; margin:0 0 4px; }
+  .card p { color:var(--gray); font-size:13px; margin:4px 0; }
+  .btn { display:inline-block; border:none; border-radius:24px; padding:14px 28px;
+         font-size:15px; font-weight:bold; cursor:pointer; min-width:200px; text-align:center; }
+  .btn-primary { background:var(--teal); color:#fff; }
+  .btn-outline { background:#fff; color:var(--teal); border:1px solid var(--teal); }
+  .btn-ghost { background:#fff; color:var(--dark); border:1px solid var(--line); }
+  .btn-danger-outline { background:#fff; color:var(--red); border:1px solid var(--red); }
+  .btn:disabled { opacity:.5; cursor:default; }
+  .btn-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+  .note { font-size:11px; color:var(--gray); font-style:italic; margin-top:12px; }
+  label { display:block; font-size:12px; color:var(--gray); margin:14px 0 6px; }
+  input[type=text], input[type=password], textarea, select {
+    width:100%; padding:12px; font-size:15px; border:1px solid #9CA3AF; border-radius:8px; }
+  textarea { min-height:84px; font-family:monospace; resize:vertical; }
+  .net { display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+         background:#fff; border:1px solid var(--line); border-radius:10px;
+         padding:14px 16px; margin-bottom:8px; cursor:pointer; font-size:15px; }
+  .net.sel { background:#EFF6F6; border-color:var(--teal); }
+  .net .meta { color:var(--gray); font-size:12px; }
+  .net .tick { margin-left:auto; color:var(--green); font-weight:bold; }
+  .err-card { border:1px solid var(--line); }
+  .err-title { display:flex; gap:12px; align-items:flex-start; }
+  .err-dot { width:20px; height:20px; border-radius:50%; background:var(--red); color:#fff;
+            display:inline-flex; align-items:center; justify-content:center; font-weight:bold; flex:none; margin-top:2px; }
+  .mono { font-family:monospace; font-size:12px; }
+  .mono.red { color:var(--red); }
+  .mono.gray { color:var(--gray); }
+  .steps { list-style:none; margin:0; padding:0; }
+  .steps li { display:flex; justify-content:space-between; padding:8px 0; font-size:14px; }
+  .steps .done { color:var(--green); font-weight:bold; }
+  .steps .active { color:var(--teal); font-weight:bold; }
+  .steps .wait { color:var(--gray); }
+  .pill { display:inline-block; padding:6px 14px; border-radius:15px; font-size:13px; font-weight:bold;
+         background:var(--green-bg); color:var(--green); border:1px solid var(--green); }
+  .kv { display:flex; justify-content:space-between; padding:6px 0; font-size:13px; }
+  .kv span:first-child { color:var(--gray); }
+  .kv span:last-child { font-weight:bold; }
+  .kv .ok { color:var(--green); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .grid2 .btn { width:100%; min-width:0; }
+  .hidden { display:none; }
+  .logbox { background:#0F172A; color:#7DD3FC; border-radius:8px; padding:16px;
+           font-family:monospace; font-size:12px; white-space:pre-wrap; min-height:200px; }
+  .logbox .ok-line { color:#4ADE80; }
+  .overlay { position:fixed; inset:0; background:rgba(17,24,39,.45); display:flex;
+            align-items:center; justify-content:center; z-index:10; }
+  .dialog { background:#fff; border-radius:16px; padding:24px; max-width:420px; width:90%; }
+  .dialog h2 { margin:0 0 8px; font-size:17px; }
+  .dialog p { color:var(--gray); font-size:13px; }
+  .dialog .btn-row { margin-top:20px; }
+  .link { color:var(--teal); font-weight:bold; text-decoration:none; }
+  .check { color:var(--teal); font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="col" id="app"></div>
+<div id="overlay-root"></div>
+<script>
+"use strict";
+/* HomeSteadyLink web app — USB (WebUSB) control.
+ * No setup code anywhere in this flow: physical USB presence is the
+ * trust root. The daemon listens only on the USB gadget interface.
+ * The setup code stays for BLE only. Nothing is stored in this
+ * browser — Wi-Fi password and Tailscale key live in page memory only.
+ */
+const VENDOR_ID = 0x1d6b, PRODUCT_ID = 0x0104;
+const FALLBACK_URL = "http://192.168.65.1:8080";
+
+const app = document.getElementById("app");
+const overlayRoot = document.getElementById("overlay-root");
+
+const S = {
+  step: "connect",          // connect | wifi | vpn | progress | device
+  info: null,               // {model, serial, fw, state}
+  status: null,             // {state, error, ssid, ip4, vpn}
+  networks: [],             // [{ssid, bssid, rssi, band, security}]
+  ssid: "", psk: "", country: "US", hidden: false,
+  wgConf: "", tsKey: "", exitNode: "",
+  vpnChoice: "",            // "" | "wireguard" | "tailscale"
+  progress: [],             // [{label, state}]
+  error: null,              // {title, summary, code, detail, next, retryLabel, retry}
+  logLines: [],
+  pollTimer: null,
+};
+
+let device = null, epIn = null, epOut = null;
+let inBuf = new Uint8Array(0);
+let reqQueue = Promise.resolve(); // serialize requests on the bulk endpoints
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+/* ---------- WebUSB framing: 4-byte BE length + JSON ---------- */
+async function transferInChunk() {
+  const res = await device.transferIn(epIn, 64);
+  if (res.status !== "ok") throw new Error("usb read failed: " + res.status);
+  return new Uint8Array(res.data.buffer);
+}
+async function readFrame() {
+  while (inBuf.length < 4) inBuf = concat(inBuf, await transferInChunk());
+  const len = (inBuf[0] << 24) | (inBuf[1] << 16) | (inBuf[2] << 8) | inBuf[3];
+  if (len === 0 || len > 64 * 1024) throw new Error("bad frame length " + len);
+  while (inBuf.length < 4 + len) inBuf = concat(inBuf, await transferInChunk());
+  const payload = inBuf.slice(4, 4 + len);
+  inBuf = inBuf.slice(4 + len);
+  return JSON.parse(new TextDecoder().decode(payload));
+}
+function concat(a, b) {
+  const out = new Uint8Array(a.length + b.length);
+  out.set(a); out.set(b, a.length);
+  return out;
+}
+async function sendFrame(obj) {
+  const body = new TextEncoder().encode(JSON.stringify(obj));
+  const hdr = new Uint8Array(4);
+  new DataView(hdr.buffer).setUint32(0, body.length, false);
+  const data = concat(hdr, body);
+  const res = await device.transferOut(epOut, data);
+  if (res.status !== "ok") throw new Error("usb write failed: " + res.status);
+}
+/* One request at a time on the bulk endpoints. */
+function request(obj) {
+  const run = reqQueue.then(async () => {
+    await sendFrame(obj);
+    return await readFrame();
+  });
+  // Keep the queue alive after a failure.
+  reqQueue = run.catch(() => {});
+  return run;
+}
+
+/* ---------- connect ---------- */
+async function connectDevice() {
+  if (!navigator.usb) { S.step = "unsupported"; render(); return; }
+  try {
+    device = await navigator.usb.requestDevice({ filters: [{ vendorId: VENDOR_ID, productId: PRODUCT_ID }] });
+    await device.open();
+    await device.selectConfiguration(1);
+    // Find the vendor-specific interface (class 0xFF) — never hardcode its number.
+    let iface = null;
+    for (const c of device.configuration.interfaces) {
+      for (const alt of c.alternates) {
+        if (alt.interfaceClass === 0xFF) { iface = { num: c.interfaceNumber, alt }; break; }
+      }
+      if (iface) break;
+    }
+    if (!iface) throw new Error("no vendor USB interface found on this device");
+    await device.claimInterface(iface.num);
+    for (const ep of iface.alt.endpoints) {
+      if (ep.type === "bulk" && ep.direction === "in") epIn = ep.endpointNumber;
+      if (ep.type === "bulk" && ep.direction === "out") epOut = ep.endpointNumber;
+    }
+    if (epIn == null || epOut == null) throw new Error("no bulk endpoints on the vendor interface");
+    device.ondisconnect = () => { disconnect("The USB cable was unplugged."); };
+    S.info = await request({ op: "get_info" });
+    logLine("usb", "device opened: " + (S.info.model || "HomeSteadyLink"));
+    S.step = "wifi";
+    render();
+    await scanWifi();
+  } catch (e) {
+    if (e && e.name === "NotFoundError") return; // user cancelled the picker
+    showError({
+      title: "No router found",
+      summary: "The browser couldn't access the router over USB.",
+      code: "error: " + (e && e.message ? e.message : e),
+      detail: "device: HomeSteadyLink (USB 1d6b:0104) · browser: " + navigator.userAgent,
+      next: "Check this: the USB cable is plugged into the router and this computer; you picked “HomeSteadyLink” in the device list; the browser has USB permission (lock icon → Site settings → USB).",
+      retryLabel: "Try again", retry: () => { S.step = "connect"; S.error = null; render(); },
+    });
+  }
+}
+function disconnect(msg) {
+  stopPolling();
+  device = null; epIn = null; epOut = null; inBuf = new Uint8Array(0);
+  S.step = "connect";
+  showError({
+    title: "Router disconnected", summary: msg || "The USB connection dropped.",
+    code: "error: usb_disconnected", detail: "Plug the cable back in and connect again.",
+    next: "No setup code needed — plug it back in and it works again.",
+    retryLabel: "Connect router", retry: () => { S.error = null; S.step = "connect"; render(); },
+  });
+}
+
+/* ---------- Wi-Fi ---------- */
+async function scanWifi() {
+  try {
+    const r = await request({ op: "scan_wifi" });
+    if (r.error) throw new Error(r.error + (r.detail ? ": " + r.detail : ""));
+    S.networks = r.networks || [];
+    logLine("wifi", "scan: " + S.networks.length + " networks");
+    if (S.networks.length && !S.ssid) S.ssid = S.networks[0].ssid;
+    render();
+  } catch (e) {
+    showError({
+      title: "Scan failed", summary: "The router couldn't scan for Wi-Fi networks.",
+      code: "error: " + e.message, detail: "router: " + (S.info?.serial || "?"),
+      next: "Move the router closer to a Wi-Fi network, then scan again.",
+      retryLabel: "Scan again", retry: () => { S.error = null; render(); scanWifi(); },
+    });
+  }
+}
+function wifiPayload() {
+  return { op: "set_wifi", ssid: S.ssid, psk: S.psk, country: S.country, hidden: S.hidden };
+}
+async function submitWifiAndVpn() {
+  try {
+    const w = await request(wifiPayload());
+    if (w.error) throw new Error(w.error + (w.detail ? ": " + w.detail : ""));
+    if (S.vpnChoice === "wireguard") {
+      const v = await request({ op: "set_vpn", type: "wireguard", conf: S.wgConf });
+      if (v.error) throw new Error(v.error + (v.detail ? ": " + v.detail : ""));
+    } else if (S.vpnChoice === "tailscale") {
+      const v = await request({ op: "set_vpn", type: "tailscale", authkey: S.tsKey, exit_node: S.exitNode || undefined });
+      if (v.error) throw new Error(v.error + (v.detail ? ": " + v.detail : ""));
+    }
+    S.step = "progress";
+    S.progress = [
+      { label: "USB link", state: "done" },
+      { label: "Joining Wi-Fi", state: "active" },
+      { label: "Internet check", state: "wait" },
+      { label: "Starting VPN", state: "wait" },
+    ];
+    render();
+    startPolling();
+  } catch (e) {
+    showError({
+      title: "Couldn't save",
+      summary: "The router refused the Wi-Fi or VPN config.",
+      code: "error: " + e.message,
+      detail: "ssid: " + S.ssid + " · router: " + (S.info?.serial || "?"),
+      next: "Check the Wi-Fi password and the VPN details, then try again.",
+      retryLabel: "Back to Wi-Fi setup", retry: () => { S.error = null; S.step = "wifi"; render(); },
+    });
+  }
+}
+
+/* ---------- progress / status ---------- */
+function startPolling() {
+  stopPolling();
+  S.pollTimer = setInterval(async () => {
+    try {
+      const st = await request({ op: "get_status" });
+      if (st.error) throw new Error(st.error);
+      S.status = st;
+      updateProgress(st);
+    } catch (e) {
+      stopPolling();
+      disconnect("Lost contact with the router while setting up (" + e.message + ").");
+    }
+  }, 1000);
+}
+function stopPolling() { if (S.pollTimer) { clearInterval(S.pollTimer); S.pollTimer = null; } }
+function updateProgress(st) {
+  const map = {
+    wifi_joining: 1, wifi_auth_failed: 1, dhcp: 1,
+    internet_check: 2, vpn_starting: 3,
+    online: 4, online_no_vpn: 4, vpn_failed: 4, captive_portal: 4,
+  };
+  const at = map[st.state] ?? 1;
+  S.progress.forEach((p, i) => {
+    p.state = i < at ? "done" : (i === at ? (at === 4 ? "done" : "active") : "wait");
+  });
+  if (st.state === "online" || st.state === "online_no_vpn") {
+    stopPolling();
+    logLine("status", st.state);
+    S.step = "device";
+    render();
+    startDevicePolling();
+  } else if (st.state === "wifi_auth_failed" || st.state === "vpn_failed" || st.state === "captive_portal") {
+    stopPolling();
+    const titles = {
+      wifi_auth_failed: ["The router couldn't join " + (S.ssid || "the network"),
+        "Check the password and try again.", "wifi_auth_failed"],
+      vpn_failed: ["The VPN didn't come up", "Check the VPN details and try again.", "vpn_failed"],
+      captive_portal: ["This Wi-Fi needs a sign-in page", "Open the portal, sign in, then re-check.", "captive_portal"],
+    };
+    const [title, summary, code] = titles[st.state];
+    showError({
+      title, summary,
+      code: "error: " + code + " · state: " + st.state,
+      detail: "ssid: " + (st.ssid || S.ssid) + " · router: " + (S.info?.serial || "?") + " · fw " + (S.info?.fw || "?") + " · usb: connected",
+      next: st.state === "wifi_auth_failed"
+        ? "What to do next: re-enter the Wi-Fi password. The old config still works if one was saved."
+        : "What to do next: go back, check the details, and try again.",
+      retryLabel: st.state === "wifi_auth_failed" ? "Re-enter Wi-Fi password" : "Back to Wi-Fi setup",
+      retry: () => { S.error = null; S.step = "wifi"; render(); },
+    });
+  } else {
+    render();
+  }
+}
+function startDevicePolling() {
+  stopPolling();
+  S.pollTimer = setInterval(async () => {
+    try { S.status = await request({ op: "get_status" }); render(); }
+    catch (e) { stopPolling(); disconnect("Lost contact with the router (" + e.message + ")."); }
+  }, 5000);
+}
+
+/* ---------- device controls ---------- */
+async function control(cmd) {
+  try {
+    const r = await request({ op: "control", cmd });
+    if (r.error) throw new Error(r.error);
+    if (cmd === "vpn_stop" || cmd === "vpn_start") { S.status = await request({ op: "get_status" }); render(); }
+    if (cmd === "diagnostics") {
+      logLine("status", "diagnostics bundle built on the router");
+      alert("Diagnostics bundle built on the router at /etc/homesteadlink/diag.tar.gz.\nFetch it from the router's Wi-Fi setup page or over the serial console — the USB channel has no file download yet.");
+    }
+  } catch (e) {
+    showError({
+      title: "Command failed", summary: "The router didn't run “" + cmd + "”.",
+      code: "error: " + e.message, detail: "cmd: " + cmd,
+      next: "Try again. If it keeps failing, copy the error details and report it.",
+      retryLabel: "Back to device", retry: () => { S.error = null; S.step = "device"; render(); },
+    });
+  }
+}
+function confirmDialog(title, body, confirmLabel, onConfirm) {
+  overlayRoot.innerHTML =
+    '<div class="overlay"><div class="dialog"><h2>' + esc(title) + '</h2><p>' + esc(body) + '</p>' +
+    '<div class="btn-row"><button class="btn btn-ghost" id="dlg-cancel">Cancel</button>' +
+    '<button class="btn" id="dlg-ok" style="background:var(--red);color:#fff">' + esc(confirmLabel) + '</button></div>' +
+    '<p class="note">Reboot reuses this dialog: “Reboot Router?” / “Reboot Now”, not destructive.</p></div></div>';
+  document.getElementById("dlg-cancel").onclick = () => { overlayRoot.innerHTML = ""; };
+  document.getElementById("dlg-ok").onclick = () => { overlayRoot.innerHTML = ""; onConfirm(); };
+}
+
+/* ---------- logs ---------- */
+function logLine(tag, msg) {
+  const now = new Date();
+  const ts = now.toTimeString().slice(0, 8) + "." + String(now.getMilliseconds()).padStart(3, "0");
+  S.logLines.push({ ts, tag, msg });
+  if (S.logLines.length > 200) S.logLines.shift();
+}
+function showLogs() {
+  const lines = S.logLines.map(l =>
+    '<span>[' + esc(l.ts) + '] [' + esc(l.tag) + '] ' + esc(l.msg) + '</span>').join("\n");
+  overlayRoot.innerHTML =
+    '<div class="overlay"><div class="dialog" style="max-width:720px"><h2>Router logs</h2>' +
+    '<p>Live USB log — same events the router records.</p>' +
+    '<div class="logbox">' + (lines || '<span style="color:#64748B">Empty state: “No log events yet.”</span>') + '</div>' +
+    '<div class="btn-row"><button class="btn btn-ghost" id="log-copy">Copy logs</button>' +
+    '<button class="btn btn-ghost" id="log-close">Close</button></div></div></div>';
+  document.getElementById("log-close").onclick = () => { overlayRoot.innerHTML = ""; };
+  document.getElementById("log-copy").onclick = () => {
+    navigator.clipboard.writeText(S.logLines.map(l => `[${l.ts}] [${l.tag}] ${l.msg}`).join("\n"));
+  };
+}
+
+/* ---------- error screen ---------- */
+function showError(e) {
+  S.error = e;
+  render();
+}
+function copyErrorDetails() {
+  const e = S.error;
+  const text = [e.title, e.summary, e.code, e.detail, e.next].join("\n");
+  navigator.clipboard.writeText(text);
+}
+
+/* ---------- render ---------- */
+function header(stepLabel) {
+  return '<header><span class="brand">⌁ HomeSteadyLink</span><span class="step">' + esc(stepLabel) + '</span></header>';
+}
+function render() {
+  // Unsupported first: renderUnsupported() sets S.error for its copy
+  // button, and the error screen must not hijack it on re-render.
+  if (S.step === "unsupported") return renderUnsupported();
+  if (S.error) { renderError(); return; }
+  if (S.step === "connect") return renderConnect();
+  if (S.step === "wifi") return renderWifi();
+  if (S.step === "vpn") return renderVpn();
+  if (S.step === "progress") return renderProgress();
+  if (S.step === "device") return renderDevice();
+}
+function renderError() {
+  const e = S.error;
+  app.innerHTML = header("") +
+    '<h1>Setting up your router</h1><p class="sub">Something went wrong — here is the full detail.</p>' +
+    '<div class="card err-card"><div class="err-title"><span class="err-dot">!</span><div>' +
+    '<h2>' + esc(e.title) + '</h2><p>' + esc(e.summary) + '</p></div></div>' +
+    '<hr style="border:none;border-top:1px solid var(--line);margin:14px 0">' +
+    '<p class="mono red">' + esc(e.code) + '</p>' +
+    '<p class="mono gray">' + esc(e.detail) + '</p>' +
+    '<p style="color:var(--dark);font-size:13px">' + esc(e.next) + '</p>' +
+    '<button class="btn btn-ghost" style="min-width:300px" onclick="copyErrorDetails()">Copy error details</button>' +
+    '</div>' +
+    '<button class="btn btn-primary" onclick="S.error=null;S.step=\'connect\';render()">' + esc(e.retryLabel || "Try again") + '</button>';
+  // Wire the retry to the stored callback instead of the default.
+  const btn = app.querySelector(".btn-primary");
+  btn.onclick = () => { const r = e.retry; S.error = null; if (r) r(); else { S.step = "connect"; render(); } };
+}
+function renderUnsupported() {
+  app.innerHTML = header("Step 1 of 4 · Connect") +
+    '<h1>Connect your router</h1><p class="sub">Plug the router into this computer with a USB cable, then choose it below.</p>' +
+    '<div class="card"><div class="err-title"><span class="err-dot">!</span><div>' +
+    '<h2>Your browser can\'t use USB</h2><p>This page needs WebUSB, which Safari and Firefox don\'t support.</p>' +
+    '<p>Use Chrome or Edge on macOS, Windows, or Linux — or Android Chrome.</p></div></div>' +
+    '<hr style="border:none;border-top:1px solid var(--line);margin:14px 0">' +
+    '<p style="font-size:13px"><b>What to do next</b></p>' +
+    '<p style="color:var(--gray);font-size:13px">1. Open this page in Chrome or Edge. 2. Or use the router\'s Wi-Fi setup page (below).</p>' +
+    '<button class="btn btn-ghost" style="min-width:300px" onclick="copyErrorDetails()">Copy error details</button></div>' +
+    '<div style="height:16px"></div>' +
+    '<button class="btn btn-primary" onclick="location.reload()">Try again</button>' +
+    '<p class="note">No USB? Join the “HomeSteady-…” Wi-Fi network, then open ' + FALLBACK_URL + '</p>';
+  S.error = { title: "Browser not supported", summary: "WebUSB is not available in this browser.",
+    code: "error: navigator.usb is undefined", detail: "browser: " + navigator.userAgent, next: "Use Chrome or Edge." };
+}
+function renderConnect() {
+  app.innerHTML = header("Step 1 of 4 · Connect") +
+    '<h1>Connect your router</h1><p class="sub">Plug the router into this computer with a USB cable, then choose it below.</p>' +
+    '<div class="card"><h2>⌁&nbsp; Your router is a USB device</h2>' +
+    '<p>The page talks to it over USB — no Bluetooth, no Wi-Fi needed for setup.</p>' +
+    '<p>The router shows up as “HomeSteadyLink” in the browser\'s device list.</p>' +
+    '<p style="margin-top:14px"><span class="pill" style="background:#EFF6F6;border-color:var(--teal);color:var(--teal)">✓&nbsp; USB cable connected</span></p></div>' +
+    '<button class="btn btn-primary" id="btn-connect">Connect router</button>' +
+    '<p class="note">Opens the browser\'s device picker. Pick “HomeSteadyLink” → Wi-Fi.</p>' +
+    '<div class="card"><h2>Which browsers work</h2>' +
+    '<p>Chrome and Edge on macOS, Windows, and Linux. Android Chrome works with a USB cable.</p>' +
+    '<p>Safari can\'t use USB — use the router\'s Wi-Fi setup page instead (see below).</p></div>' +
+    '<p style="font-size:12px;color:var(--gray)">No USB? Open the router\'s Wi-Fi setup page: join the “HomeSteady-…” network, then open<br><a class="link" href="' + FALLBACK_URL + '">' + FALLBACK_URL + '</a></p>';
+  document.getElementById("btn-connect").onclick = connectDevice;
+}
+function renderWifi() {
+  const nets = S.networks.map(n =>
+    '<button class="net' + (n.ssid === S.ssid ? " sel" : "") + '" data-ssid="' + esc(n.ssid) + '">' +
+    '<span>⌁</span><span><b>' + esc(n.ssid) + '</b><br><span class="meta">' + n.rssi + ' dBm · ' + esc(n.band) + ' GHz · ' + esc(n.security) + '</span></span>' +
+    (n.ssid === S.ssid ? '<span class="tick">✓</span>' : "") + '</button>').join("");
+  app.innerHTML = header("Step 2 of 4 · Wi-Fi") +
+    '<h1>Connect the router to Wi-Fi</h1><p class="sub">These are the networks the router can see from where it sits.</p>' +
+    '<p style="font-size:15px"><b>Networks near the router (' + S.networks.length + ')</b>' +
+    '<a class="link" href="#" id="scan-again" style="float:right;font-size:12px">Scan again</a></p>' +
+    (S.networks.length ? nets :
+      '<div class="card"><h2>No networks found</h2><p>The router couldn\'t see any Wi-Fi networks from where it sits.</p>' +
+      '<p>Move the router closer to a Wi-Fi network, then scan again.</p></div>') +
+    '<label>Wi-Fi password for ' + esc(S.ssid || "the selected network") + '</label>' +
+    '<input type="password" id="psk" value="' + esc(S.psk) + '" autocomplete="off" placeholder="Wi-Fi password">' +
+    '<label style="margin-top:10px"><input type="checkbox" id="open-net"> Open network (no password)</label>' +
+    '<p style="margin-top:14px"><b>Advanced</b> <a class="link" href="#" id="adv-toggle" style="float:right;font-size:13px">Show</a></p>' +
+    '<div id="adv" class="hidden">' +
+    '<label><input type="checkbox" id="hidden-net"' + (S.hidden ? " checked" : "") + '> Hidden network (type the name — it isn\'t broadcast)</label>' +
+    '<label>Network name (SSID)</label><input type="text" id="ssid" value="' + esc(S.ssid) + '">' +
+    '<label>Country</label><input type="text" id="country" value="' + esc(S.country) + '" style="max-width:90px">' +
+    '<span style="font-size:12px;color:var(--gray);font-style:italic"> Prefilled from this computer\'s locale — almost nobody changes it.</span></div>' +
+    '<div class="btn-row"><button class="btn btn-primary" id="btn-wifi">Connect to Wi-Fi</button></div>' +
+    '<p class="note">Nothing is written to the router yet — Connect sends Wi-Fi + VPN together on the next step.</p>';
+  app.querySelectorAll(".net").forEach(b => b.onclick = () => { S.ssid = b.dataset.ssid; render(); });
+  document.getElementById("scan-again").onclick = (e) => { e.preventDefault(); scanWifi(); };
+  document.getElementById("adv-toggle").onclick = (e) => {
+    e.preventDefault();
+    const adv = document.getElementById("adv");
+    adv.classList.toggle("hidden");
+    e.target.textContent = adv.classList.contains("hidden") ? "Show" : "Hide";
+  };
+  document.getElementById("btn-wifi").onclick = () => {
+    S.psk = document.getElementById("psk").value;
+    const adv = document.getElementById("adv");
+    if (!adv.classList.contains("hidden")) {
+      S.ssid = document.getElementById("ssid").value;
+      S.country = document.getElementById("country").value || "US";
+      S.hidden = document.getElementById("hidden-net").checked;
+    }
+    if (document.getElementById("open-net").checked) S.psk = "";
+    if (!S.ssid) { alert("Pick a network first."); return; }
+    S.step = "vpn"; render();
+  };
+}
+function renderVpn() {
+  app.innerHTML = header("Step 3 of 4 · VPN") +
+    '<h1>Set up the VPN</h1><p class="sub">The router routes all its traffic through the VPN, behind a kill switch.</p>' +
+    '<div class="card"><h2>🛡 WireGuard</h2><p>Paste your WireGuard config (.conf file contents)</p>' +
+    '<textarea id="wg" placeholder="[Interface]&#10;PrivateKey = …">' + esc(S.wgConf) + '</textarea>' +
+    '<div class="btn-row"><button class="btn btn-ghost" id="wg-upload" style="min-width:0">Upload .conf file</button>' +
+    '<input type="file" id="wg-file" accept=".conf" class="hidden"></div></div>' +
+    '<div class="card"><h2>🛡 Tailscale</h2><p>Join your tailnet — the router appears as a device on it.</p>' +
+    '<label>Auth key</label><input type="text" id="tskey" value="' + esc(S.tsKey) + '" placeholder="Auth key (tskey-auth-…)" autocomplete="off">' +
+    '<label>Exit node (optional)</label><input type="text" id="exit" value="' + esc(S.exitNode) + '" placeholder="Exit node (optional) — e.g. mullvad-us12">' +
+    '<p class="note">Generate a key in your Tailscale admin console under Settings → Keys.</p></div>' +
+    '<div class="btn-row"><button class="btn btn-primary" id="btn-save">Save &amp; provision</button></div>' +
+    '<div class="btn-row"><button class="btn btn-ghost" id="btn-skip">Skip VPN (Wi-Fi only)</button></div>' +
+    '<p class="note">Save sends Wi-Fi + VPN together → Progress. Skip sends Wi-Fi only.<br>WireGuard or Tailscale — pick one. The other card stays empty.</p>';
+  document.getElementById("wg-upload").onclick = () => document.getElementById("wg-file").click();
+  document.getElementById("wg-file").onchange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => { document.getElementById("wg").value = r.result; };
+    r.readAsText(f);
+  };
+  document.getElementById("btn-save").onclick = () => {
+    S.wgConf = document.getElementById("wg").value.trim();
+    S.tsKey = document.getElementById("tskey").value.trim();
+    S.exitNode = document.getElementById("exit").value.trim();
+    if (S.wgConf && S.tsKey) { alert("Pick one VPN: WireGuard or Tailscale, not both."); return; }
+    if (!S.wgConf && !S.tsKey) { alert("Fill in WireGuard or Tailscale — or Skip VPN."); return; }
+    S.vpnChoice = S.wgConf ? "wireguard" : "tailscale";
+    submitWifiAndVpn();
+  };
+  document.getElementById("btn-skip").onclick = () => { S.vpnChoice = ""; submitWifiAndVpn(); };
+}
+function renderProgress() {
+  const rows = S.progress.map(p => {
+    const cls = p.state === "done" ? "done" : (p.state === "active" ? "active" : "wait");
+    const txt = p.state === "done" ? "Done" : (p.state === "active" ? "In progress…" : "Waiting");
+    const mark = p.state === "done" ? "✓ " : (p.state === "active" ? "◐ " : "○ ");
+    return '<li><span>' + mark + esc(p.label) + '</span><span class="' + cls + '">' + txt + '</span></li>';
+  }).join("");
+  app.innerHTML = header("Step 4 of 4 · Progress") +
+    '<h1>Setting up your router</h1><p class="sub">Live status while the router joins Wi-Fi and starts the VPN.</p>' +
+    '<div class="card"><h2>⌁&nbsp; Joining ' + esc(S.ssid) + '…</h2><p>Uplink SSID: ' + esc(S.ssid) + '</p></div>' +
+    '<p style="font-size:15px"><b>Setup steps</b></p><ul class="steps">' + rows + '</ul>' +
+    '<p class="note">The page polls the router over USB — every step updates live. No refresh needed.</p>' +
+    '<div class="btn-row"><button class="btn btn-ghost" id="btn-back">Back to Wi-Fi setup</button></div>' +
+    '<p class="note">“Open device dashboard” replaces it once the router is online.</p>';
+  document.getElementById("btn-back").onclick = () => { stopPolling(); S.step = "wifi"; render(); };
+}
+function renderDevice() {
+  const st = S.status || {};
+  const vpnTxt = st.vpn ? ("Tailscale · exit node " + esc(S.exitNode || "—") + " · Active") : "Off";
+  const online = st.state === "online" || st.state === "online_no_vpn";
+  app.innerHTML = header("Device") +
+    '<h1>HomeSteady Travel Router</h1><p class="sub">Steady-state control of a provisioned router.</p>' +
+    '<div class="card"><h2>⌁&nbsp; ' + esc(S.info?.serial ? "HomeSteady-" + S.info.serial.slice(-6) : "HomeSteady") + '</h2>' +
+    '<p>Serial ' + esc(S.info?.serial || "?") + ' · Firmware ' + esc(S.info?.fw || "?") + '</p>' +
+    '<p style="margin-top:12px"><span class="pill">' + (online ? "✓&nbsp; Online &amp; Protected" : "●&nbsp; " + esc(st.state || "unknown")) + '</span></p></div>' +
+    '<div class="card"><h2>Uplink &amp; VPN</h2>' +
+    '<div class="kv"><span>Wi-Fi</span><span>' + esc(st.ssid || S.ssid || "—") + '</span></div>' +
+    '<div class="kv"><span>Router IP</span><span>' + esc(st.ip4 || "—") + '</span></div>' +
+    '<div class="kv"><span>VPN</span><span class="' + (st.vpn ? "ok" : "") + '">' + vpnTxt + '</span></div></div>' +
+    '<p style="font-size:15px"><b>Router controls</b></p>' +
+    '<div class="grid2">' +
+    '<button class="btn btn-primary" id="ctl-wifi">Change Wi-Fi</button>' +
+    '<button class="btn" id="ctl-vpn" style="background:var(--slate);color:#fff">' + (st.vpn ? "Stop VPN" : "Start VPN") + '</button>' +
+    '<button class="btn btn-ghost" id="ctl-reboot">↻&nbsp; Reboot</button>' +
+    '<button class="btn btn-ghost" id="ctl-diag" style="color:var(--teal)">Diagnostics</button>' +
+    '<button class="btn btn-danger-outline" id="ctl-reset">Factory Reset</button>' +
+    '<button class="btn btn-ghost" id="ctl-disc">Disconnect</button>' +
+    '</div>' +
+    '<p class="note">Reboot and Factory Reset ask for confirmation first. Diagnostics downloads a bundle.</p>' +
+    '<p class="note"><a class="link" href="#" id="ctl-logs">Router logs</a></p>';
+  document.getElementById("ctl-wifi").onclick = () => { stopPolling(); S.step = "wifi"; render(); scanWifi(); };
+  document.getElementById("ctl-vpn").onclick = () => control(st.vpn ? "vpn_stop" : "vpn_start");
+  document.getElementById("ctl-reboot").onclick = () =>
+    confirmDialog("Reboot Router?", "The router restarts. Your Wi-Fi and VPN config stay.", "Reboot Now", () => control("reboot"));
+  document.getElementById("ctl-reset").onclick = () =>
+    confirmDialog("Factory Reset Travel Router?", "This erases the Wi-Fi config and the VPN config. The router restarts.",
+      "Confirm Reset", () => control("factory_reset"));
+  document.getElementById("ctl-diag").onclick = () => control("diagnostics");
+  document.getElementById("ctl-disc").onclick = () => {
+    stopPolling();
+    if (device) device.close().catch(() => {});
+    device = null; S.step = "connect"; render();
+  };
+  document.getElementById("ctl-logs").onclick = (e) => { e.preventDefault(); showLogs(); };
+}
+
+// Expose the two inline handlers used in error screens.
+window.copyErrorDetails = copyErrorDetails;
+
+if (!navigator.usb) { S.step = "unsupported"; }
+render();
+</script>
+</body>
+</html>
