@@ -11,11 +11,11 @@
 <g stroke="#15803D" stroke-width="2" fill="none"><rect x="91" y="57" width="14" height="10" rx="2" fill="#15803D" stroke="none"/><path d="M94 57 V54 a4 4 0 0 1 8 0 V57"/></g>
 <text x="112" y="62" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" fill="#111827" text-anchor="start">https://homesteadlink.github.io/web-app/</text>
 <text x="712" y="62" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#0F766E" text-anchor="start">WebUSB</text>
-<text x="1120" y="18" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="end">W5 — Progress</text>
+<text x="1120" y="18" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="end">W4 — Progress</text>
 <rect x="0" y="76" width="1280" height="724" fill="#F9FAFB"/>
 <g stroke="#0F766E" stroke-width="2" fill="none" stroke-linecap="round"><rect x="283" y="112" width="18" height="8" rx="2" fill="#0F766E" stroke="none"/><line x1="288" y1="112" x2="288" y2="105"/><line x1="296" y1="112" x2="296" y2="105"/><circle cx="288" cy="104" r="1.6" fill="#0F766E" stroke="none"/><circle cx="296" cy="104" r="1.6" fill="#0F766E" stroke="none"/><circle cx="289" cy="116" r="1.3" fill="#fff" stroke="none"/><circle cx="295" cy="116" r="1.3" fill="#fff" stroke="none"/></g>
 <text x="312" y="117" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#111827" text-anchor="start">HomeSteadyLink</text>
-<text x="1000" y="117" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="end">Step 5 of 5 · Progress</text>
+<text x="1000" y="117" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="end">Step 4 of 4 · Progress</text>
 <text x="280" y="158" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#111827" text-anchor="start">Setting up your router</text>
 <text x="280" y="182" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Live status while the router joins Wi-Fi and starts the VPN.</text>
 <rect x="280" y="194" width="720" height="76" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
@@ -27,22 +27,18 @@
 <path d="M287 322 L291 326 L297 318" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="310" y="326" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">USB link</text>
 <text x="1000" y="326" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#15803D" text-anchor="end">Done</text>
-<circle cx="292" cy="352" r="10" fill="#15803D" stroke="none" stroke-width="0"/>
-<path d="M287 352 L291 356 L297 348" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="310" y="356" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Paired with the router</text>
-<text x="1000" y="356" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#15803D" text-anchor="end">Done</text>
-<circle cx="292" cy="382" r="11" fill="#FFFFFF" stroke="#0F766E" stroke-width="2"/>
-<path d="M292 371 A11 11 0 0 1 303 382" fill="none" stroke="#0F766E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="310" y="386" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#111827" text-anchor="start">Joining Wi-Fi</text>
-<text x="1000" y="386" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#0F766E" text-anchor="end">In progress…</text>
+<circle cx="292" cy="352" r="11" fill="#FFFFFF" stroke="#0F766E" stroke-width="2"/>
+<path d="M292 341 A11 11 0 0 1 303 352" fill="none" stroke="#0F766E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="310" y="356" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#111827" text-anchor="start">Joining Wi-Fi</text>
+<text x="1000" y="356" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#0F766E" text-anchor="end">In progress…</text>
+<circle cx="292" cy="382" r="10" fill="#FFFFFF" stroke="#9CA3AF" stroke-width="1.5"/>
+<text x="310" y="386" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Internet check</text>
+<text x="1000" y="386" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#6B7280" text-anchor="end">Waiting</text>
 <circle cx="292" cy="412" r="10" fill="#FFFFFF" stroke="#9CA3AF" stroke-width="1.5"/>
-<text x="310" y="416" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Internet check</text>
+<text x="310" y="416" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Starting VPN</text>
 <text x="1000" y="416" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#6B7280" text-anchor="end">Waiting</text>
-<circle cx="292" cy="442" r="10" fill="#FFFFFF" stroke="#9CA3AF" stroke-width="1.5"/>
-<text x="310" y="446" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Starting VPN</text>
-<text x="1000" y="446" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#6B7280" text-anchor="end">Waiting</text>
-<text x="280" y="481" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">The page polls the router over USB — every step updates live. No refresh needed.</text>
-<rect x="280" y="492" width="280" height="52" rx="24" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
-<text x="420.0" y="523.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Back to Wi-Fi setup</text>
-<text x="280" y="567" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">“Open device dashboard” replaces it once the router is online.</text>
+<text x="280" y="451" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">The page polls the router over USB — every step updates live. No refresh needed.</text>
+<rect x="280" y="462" width="280" height="52" rx="24" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+<text x="420.0" y="493.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Back to Wi-Fi setup</text>
+<text x="280" y="537" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">“Open device dashboard” replaces it once the router is online.</text>
 </svg>

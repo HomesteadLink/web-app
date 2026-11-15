@@ -4,6 +4,10 @@ Every element comes from the GATT contract (firmware spec/gatt.md) and the
 Android app flow (mobile-app screens S1-S6). No element is invented.
 Desktop browser frames, 1280x800. Run: python3 build-web-wireframes.py ;
 renders via cdp-shot.js (node cdp-shot.js file://$PWD/<name>.svg $PWD/<name>.png 1280 800).
+
+No setup code anywhere in this flow (Den, 2026-11-15): physical USB
+presence is the trust root — the cable is the credential. The setup
+code stays for BLE only.
 """
 import os
 from xml.sax.saxutils import escape
@@ -212,15 +216,14 @@ def frame_flow():
     y = 100
     p.append(t("Web app flow", CX, y + 22, 24, DARK, "bold"))
     y += 34
-    p.append(t("Connect over USB → Pair → Wi-Fi → VPN → Progress → Device. One decision per step.", CX, y + 16, 14, GRAY))
+    p.append(t("Connect over USB → Wi-Fi → VPN → Progress → Device. One decision per step.", CX, y + 16, 14, GRAY))
     y += 40
     nodes = [
         ("W1 · Connect", "pick the router over USB"),
-        ("W2 · Pair", "6-digit setup code"),
-        ("W3 · Wi-Fi", "networks near the router"),
-        ("W4 · VPN", "WireGuard / Tailscale / Skip"),
-        ("W5 · Progress", "live provisioning"),
-        ("W6 · Device", "steady-state control"),
+        ("W2 · Wi-Fi", "networks near the router"),
+        ("W3 · VPN", "WireGuard / Tailscale / Skip"),
+        ("W4 · Progress", "live provisioning"),
+        ("W5 · Device", "steady-state control"),
     ]
     NX, NW, NH, GAP = CX, 200, 52, 24
     yy = y
@@ -251,20 +254,19 @@ def frame_flow():
             p.append(line(ex, from_y, ex, ey, stroke="#F59E0B", sw=1.5, dash="4 3"))
             p.append(line(ex, ey, BX, ey, stroke="#F59E0B", sw=1.5, dash="4 3"))
             p.append(path(f"M{BX-6} {ey-4} L{BX} {ey} L{BX-6} {ey+4}", fill="none", stroke="#F59E0B", sw=1.5))
-    prog_cy = centers[4]
-    dev_cy = centers[5]
+    prog_cy = centers[3]
+    dev_cy = centers[4]
     branch(178, 44, ["No device / permission denied → back to Connect"], centers[0])
-    branch(254, 44, ["Wrong code / lockout → try again on Pair"], centers[1])
-    branch(330, 44, ["No networks found → scan again on Wi-Fi"], centers[2])
-    branch(472, 64, ["Wi-Fi auth failed → back to Wi-Fi", "Captive portal → portal pass → re-check"], prog_cy)
-    branch(546, 46, ["VPN failed → Retry VPN / continue without VPN"], prog_cy, elbow=(CX + 225, 569))
-    branch(604, 46, ["Factory Reset / Disconnect → Connect"], dev_cy, elbow=(CX + 225, 627))
-    ny = 680
+    branch(254, 44, ["No networks found → scan again on Wi-Fi"], centers[1])
+    branch(406, 64, ["Wi-Fi auth failed → back to Wi-Fi", "Captive portal → portal pass → re-check"], prog_cy)
+    branch(478, 46, ["VPN failed → Retry VPN / continue without VPN"], prog_cy, elbow=(CX + 225, 501))
+    branch(536, 46, ["Factory Reset / Disconnect → Connect"], dev_cy, elbow=(CX + 225, 559))
+    ny = 604
     p.append(line(CX, ny, CX1, ny))
     ny += 24
     for ln in ["Browser picker: the device list is the browser's own dialog — the page cannot draw it.",
               "Back button: browser back returns to the previous step; Disconnect returns to Connect.",
-              "The page remembers the paired device for this browser session only — closing the tab disconnects."]:
+              "No setup code: the USB cable is the trust — anyone holding the board and a cable can control it."]:
         p.append(t(ln, CX, ny, 13, GRAY))
         ny += 20
     return browser_close(p)
@@ -272,7 +274,7 @@ def frame_flow():
 # ================= W1 — Connect =================
 def frame_w1():
     p = browser_open("W1 — Connect")
-    y = page_header(p, "Step 1 of 5 · Connect", "Connect your router",
+    y = page_header(p, "Step 1 of 4 · Connect", "Connect your router",
                     "Plug the router into this computer with a USB cable, then choose it below.")
     # hero card
     h = 150
@@ -286,7 +288,7 @@ def frame_w1():
     y += h + 16
     y = btn(p, CX, y, 260, 52, "Connect router", "primary")
     y += 14
-    y = annot(p, y, "Opens the browser's device picker. Pick “HomeSteadyLink” → Pair.")
+    y = annot(p, y, "Opens the browser's device picker. Pick “HomeSteadyLink” → Wi-Fi.")
     y += 8
     # browser note card
     h = 96
@@ -302,7 +304,7 @@ def frame_w1():
 # ================= W1-unsupported — browser without WebUSB =================
 def frame_w1_unsupported():
     p = browser_open("W1 — Browser not supported")
-    y = page_header(p, "Step 1 of 5 · Connect", "Connect your router",
+    y = page_header(p, "Step 1 of 4 · Connect", "Connect your router",
                     "Plug the router into this computer with a USB cable, then choose it below.")
     h = 190
     card(p, CX, y, CW, h)
@@ -324,7 +326,7 @@ def frame_w1_unsupported():
 # ================= W1-denied — permission denied / no device =================
 def frame_w1_denied():
     p = browser_open("W1 — No router found")
-    y = page_header(p, "Step 1 of 5 · Connect", "Connect your router",
+    y = page_header(p, "Step 1 of 4 · Connect", "Connect your router",
                     "Plug the router into this computer with a USB cable, then choose it below.")
     h = 210
     card(p, CX, y, CW, h)
@@ -345,73 +347,10 @@ def frame_w1_denied():
     y = annot(p, y, "and the browser's reason, copied as one block for a bug report.")
     return browser_close(p)
 
-# ================= W2 — Pair =================
+# ================= W2 — Wi-Fi =================
 def frame_w2():
-    p = browser_open("W2 — Pair")
-    y = page_header(p, "Step 2 of 5 · Pair", "Pair with your router",
-                    "The router only talks to the first device that pairs with it.")
-    # device card
-    h = 66
-    card(p, CX, y, CW, h)
-    p.append(ic_usb(CX + 24, y + 20, TEAL))
-    p.append(t("HomeSteady-TR-8821", CX + 64, y + 30, 15, DARK, "bold"))
-    p.append(t("USB connected · Firmware 1.0.0", CX + 64, y + 52, 12, GRAY))
-    p.append(rect(CX1 - 130, y + 20, 106, 26, fill=GREEN_BG, stroke=GREEN, rx=13))
-    p.append(t("✓  Connected", CX1 - 77, y + 37, 12, GREEN, "bold", "middle"))
-    y += h + 16
-    # code entry card
-    h = 190
-    card(p, CX, y, CW, h)
-    p.append(t("Enter the 6-digit setup code", CX + 24, y + 30, 16, DARK, "bold"))
-    p.append(t("The code is printed on the router label and on the quick-start card.", CX + 24, y + 54, 13, GRAY))
-    # six digit boxes
-    bx, by, bs, gap = CX + 24, y + 74, 52, 10
-    for i in range(6):
-        p.append(rect(bx + i * (bs + gap), by, bs, 60, fill="#FFFFFF", stroke="#9CA3AF", rx=8))
-    p.append(t("4", bx + 26, by + 40, 24, DARK, "bold", "middle"))
-    p.append(t("8", bx + bs + gap + 26, by + 40, 24, DARK, "bold", "middle"))
-    p.append(t("2", bx + 2 * (bs + gap) + 26, by + 40, 24, DARK, "bold", "middle"))
-    p.append(t("The code is never stored in this browser.", CX + 24, y + 152, 12, GRAY, "normal", "start", "italic"))
-    y += h + 16
-    y = btn(p, CX, y, 200, 52, "Pair", "primary")
-    y += 14
-    y = annot(p, y, "Pair sends the code over USB. A wrong code counts toward the lockout (5 tries → 15 min).")
-    return browser_close(p)
-
-# ================= W2-pair-error — wrong code / lockout =================
-def frame_w2_error():
-    p = browser_open("W2 — Wrong code")
-    y = page_header(p, "Step 2 of 5 · Pair", "Pair with your router",
-                    "The router only talks to the first device that pairs with it.")
-    h = 66
-    card(p, CX, y, CW, h)
-    p.append(ic_usb(CX + 24, y + 20, TEAL))
-    p.append(t("HomeSteady-TR-8821", CX + 64, y + 30, 15, DARK, "bold"))
-    p.append(t("USB connected · Firmware 1.0.0", CX + 64, y + 52, 12, GRAY))
-    y += h + 16
-    # error card (full error per the rule: summary + detail + next action + copy)
-    h = 230
-    card(p, CX, y, CW, h)
-    p.append(ic_error(CX + 24, y + 22, RED))
-    p.append(t("Wrong code", CX + 64, y + 36, 17, DARK, "bold"))
-    p.append(t("That code doesn't match this router. 2 tries left before a 15-minute lockout.", CX + 64, y + 60, 13, GRAY))
-    p.append(line(CX + 24, y + 78, CX1 - 24, y + 78))
-    p.append(mono(CX + 24, y + 100, "error: auth_failed · attempts: 3 of 5 · lockout: 15 min after 5 failures", 12, RED))
-    p.append(mono(CX + 24, y + 120, "device: HomeSteady-TR-8821 · fw 1.0.0 · usb: connected", 12, GRAY))
-    p.append(t("Check the code on the router label — it's 6 digits, no spaces.", CX + 24, y + 146, 13, GRAY))
-    p.append(rect(CX + 24, y + 162, 300, 24, fill="#F3F4F6", stroke=LINE, rx=6))
-    p.append(t("Copy error details", CX + 174, y + 178, 12, DARK, "bold", "middle"))
-    y += h + 16
-    y = btn(p, CX, y, 200, 52, "Try again", "primary")
-    y += 14
-    y = annot(p, y, "After 5 wrong codes the router refuses pairing for 15 minutes (then 30, then 60).")
-    y = annot(p, y, "The lockout counts powered-on time only — unplugging the router doesn't shorten it.")
-    return browser_close(p)
-
-# ================= W3 — Wi-Fi =================
-def frame_w3():
-    p = browser_open("W3 — Wi-Fi")
-    y = page_header(p, "Step 3 of 5 · Wi-Fi", "Connect the router to Wi-Fi",
+    p = browser_open("W2 — Wi-Fi")
+    y = page_header(p, "Step 2 of 4 · Wi-Fi", "Connect the router to Wi-Fi",
                     "These are the networks the router can see from where it sits.")
     # network list
     y = sect(p, y, "Networks near the router (3)")
@@ -453,10 +392,10 @@ def frame_w3():
     y = annot(p, y, "Nothing is written to the router yet — Connect sends Wi-Fi + VPN together on the next step.")
     return browser_close(p)
 
-# ================= W3-wifi-empty — no networks found =================
-def frame_w3_empty():
-    p = browser_open("W3 — No networks found")
-    y = page_header(p, "Step 3 of 5 · Wi-Fi", "Connect the router to Wi-Fi",
+# ================= W2-wifi-empty — no networks found =================
+def frame_w2_empty():
+    p = browser_open("W2 — No networks found")
+    y = page_header(p, "Step 2 of 4 · Wi-Fi", "Connect the router to Wi-Fi",
                     "These are the networks the router can see from where it sits.")
     y = sect(p, y, "Networks near the router (0)")
     p.append(t("Scan again", CX1, y - 9, 12, TEAL, "bold", "end"))
@@ -476,10 +415,10 @@ def frame_w3_empty():
     y = annot(p, y, "Typing a name works for hidden networks too — the router scans for that name directly.")
     return browser_close(p)
 
-# ================= W4 — VPN =================
-def frame_w4():
-    p = browser_open("W4 — VPN")
-    y = page_header(p, "Step 4 of 5 · VPN", "Set up the VPN",
+# ================= W3 — VPN =================
+def frame_w3():
+    p = browser_open("W3 — VPN")
+    y = page_header(p, "Step 3 of 4 · VPN", "Set up the VPN",
                     "The router routes all its traffic through the VPN, behind a kill switch.")
     # WireGuard card (default visible path)
     h = 170
@@ -516,10 +455,10 @@ def frame_w4():
     y = annot(p, y, "WireGuard or Tailscale — pick one. The other card stays empty.")
     return browser_close(p)
 
-# ================= W5 — Progress =================
-def frame_w5():
-    p = browser_open("W5 — Progress")
-    y = page_header(p, "Step 5 of 5 · Progress", "Setting up your router",
+# ================= W4 — Progress =================
+def frame_w4():
+    p = browser_open("W4 — Progress")
+    y = page_header(p, "Step 4 of 4 · Progress", "Setting up your router",
                     "Live status while the router joins Wi-Fi and starts the VPN.")
     # status card
     h = 76
@@ -531,7 +470,6 @@ def frame_w5():
     # pipeline tracker
     y = sect(p, y, "Setup steps")
     steps = [("USB link", "done"),
-             ("Paired with the router", "done"),
              ("Joining Wi-Fi", "active"),
              ("Internet check", "waiting"),
              ("Starting VPN", "waiting")]
@@ -545,10 +483,10 @@ def frame_w5():
     y = annot(p, y, "“Open device dashboard” replaces it once the router is online.")
     return browser_close(p)
 
-# ================= W5-error — Wi-Fi auth failed =================
-def frame_w5_error():
-    p = browser_open("W5 — Wi-Fi failed")
-    y = page_header(p, "Step 5 of 5 · Progress", "Setting up your router",
+# ================= W4-error — Wi-Fi auth failed =================
+def frame_w4_error():
+    p = browser_open("W4 — Wi-Fi failed")
+    y = page_header(p, "Step 4 of 4 · Progress", "Setting up your router",
                     "Live status while the router joins Wi-Fi and starts the VPN.")
     # error card (full error per the rule: summary + detail + next action + copy)
     h = 250
@@ -570,9 +508,9 @@ def frame_w5_error():
     y = annot(p, y, "Each shows the plain-language summary first, the code small — never the code alone.")
     return browser_close(p)
 
-# ================= W6 — Device dashboard =================
-def frame_w6():
-    p = browser_open("W6 — Device")
+# ================= W5 — Device dashboard =================
+def frame_w5():
+    p = browser_open("W5 — Device")
     y = page_header(p, "Device", "HomeSteady Travel Router", "Steady-state control of a provisioned router.")
     # status card
     h = 96
@@ -614,20 +552,15 @@ def frame_w6():
 
 # ================= O1 — Confirm dialog (Factory Reset) =================
 def frame_o1():
-    p = frame_w6()
-    # dim the page: overlay a translucent layer + centered dialog
-    # (frame_w6 already closed the svg; rebuild: take its parts minus close)
-    # Simpler: re-render W6 content then overlay — implemented by string surgery below.
+    p = frame_w5()
     svg = p
     inner = svg[:-len("</svg>")]
     inner += f'<rect x="0" y="76" width="1280" height="724" fill="#111827" opacity="0.45"/>'
     dx, dy, dw, dh = 430, 230, 420, 240
     inner += rect(dx, dy, dw, dh, fill="#FFFFFF", stroke=LINE, rx=16)
     inner += t("Factory Reset Travel Router?", dx + 24, dy + 36, 17, DARK, "bold")
-    inner += t("This erases the Wi-Fi config, the VPN", dx + 24, dy + 62, 13, GRAY)
-    inner += t("config, and the paired device. The", dx + 24, dy + 82, 13, GRAY)
-    inner += t("router restarts. The label and setup", dx + 24, dy + 102, 13, GRAY)
-    inner += t("code stay valid.", dx + 24, dy + 122, 13, GRAY)
+    inner += t("This erases the Wi-Fi config and the", dx + 24, dy + 62, 13, GRAY)
+    inner += t("VPN config. The router restarts.", dx + 24, dy + 82, 13, GRAY)
     inner += rect(dx + 24, dy + 150, 150, 46, fill="#FFFFFF", stroke=LINE, rx=23)
     inner += t("Cancel", dx + 99, dy + 178, 14, DARK, "bold", "middle")
     inner += rect(dx + 196, dy + 150, 200, 46, fill=RED, stroke=RED, rx=23)
@@ -638,7 +571,7 @@ def frame_o1():
 
 # ================= O2 — Logs panel =================
 def frame_o2():
-    p = frame_w6()
+    p = frame_w5()
     svg = p
     inner = svg[:-len("</svg>")]
     inner += f'<rect x="0" y="76" width="1280" height="724" fill="#111827" opacity="0.45"/>'
@@ -649,7 +582,6 @@ def frame_o2():
     inner += rect(dx + 24, dy + 72, dw - 48, 300, fill="#0F172A", stroke="#0F172A", rx=8)
     log_lines = [
         ("14:02:11.204", "usb", "device opened: HomeSteadyLink", "#7DD3FC"),
-        ("14:02:11.311", "pair", "setup code accepted", "#7DD3FC"),
         ("14:02:14.802", "wifi", "scan: 3 networks", "#7DD3FC"),
         ("14:02:19.455", "wifi", "join HomeNet-5G: associated", "#7DD3FC"),
         ("14:02:21.090", "dhcp", "ip 10.64.0.42", "#7DD3FC"),
@@ -676,14 +608,12 @@ FRAMES = [
     ("w1-connect", frame_w1),
     ("w1-unsupported", frame_w1_unsupported),
     ("w1-denied", frame_w1_denied),
-    ("w2-pair", frame_w2),
-    ("w2-pair-error", frame_w2_error),
-    ("w3-wifi", frame_w3),
-    ("w3-wifi-empty", frame_w3_empty),
-    ("w4-vpn", frame_w4),
-    ("w5-progress", frame_w5),
-    ("w5-error", frame_w5_error),
-    ("w6-device", frame_w6),
+    ("w2-wifi", frame_w2),
+    ("w2-wifi-empty", frame_w2_empty),
+    ("w3-vpn", frame_w3),
+    ("w4-progress", frame_w4),
+    ("w4-error", frame_w4_error),
+    ("w5-device", frame_w5),
     ("o1-confirm", frame_o1),
     ("o2-logs", frame_o2),
 ]

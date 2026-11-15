@@ -3,9 +3,11 @@
 Control the HomeSteadyLink travel router over USB (WebUSB) — the same
 product as the Android app, on a second control path.
 
-- **What it does:** connect to the router over a USB cable, pair with the
-  6-digit setup code, list Wi-Fi networks and connect, set up the VPN
-  (WireGuard or Tailscale with an exit node), and control the device.
+- **What it does:** connect to the router over a USB cable, list Wi-Fi
+  networks and connect, set up the VPN (WireGuard or Tailscale with an
+  exit node), and control the device. No setup code anywhere in this
+  flow — physical USB presence is the trust root (Den, 2026-11-15);
+  the setup code stays for BLE only.
 - **Browsers:** Chrome and Edge on macOS, Windows, Linux; Android Chrome
   with a USB cable. Safari and Firefox have no WebUSB — the fallback is
   the router's Wi-Fi setup page (http://192.168.65.1:8080).

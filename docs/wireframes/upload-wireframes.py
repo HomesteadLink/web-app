@@ -9,9 +9,9 @@ import sys
 import os
 
 WIRE = os.path.dirname(os.path.abspath(__file__))
-NAMES = ["flow-web", "w1-connect", "w1-unsupported", "w1-denied", "w2-pair",
-         "w2-pair-error", "w3-wifi", "w3-wifi-empty", "w4-vpn", "w5-progress",
-         "w5-error", "w6-device", "o1-confirm", "o2-logs"]
+NAMES = ["flow-web", "w1-connect", "w1-unsupported", "w1-denied", "w2-wifi",
+         "w2-wifi-empty", "w3-vpn", "w4-progress", "w4-error", "w5-device",
+         "o1-confirm", "o2-logs"]
 
 def call(tool, args):
     cmd = ["/opt/hatch/bin/notion-cli", "call-tool", "--name", tool,
