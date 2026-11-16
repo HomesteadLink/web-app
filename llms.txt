@@ -1,0 +1,25 @@
+# HomeSteadyLink
+
+> HomeSteadyLink is a travel router that a phone app configures over Bluetooth: at first boot the app pushes Wi-Fi credentials to the device, the device joins the Wi-Fi network and brings up a VPN behind a kill switch. The same product is also controlled from a browser over a USB cable (WebUSB). It is in alpha with a bunch of alpha testers right now and expanding soon; the app configures the device.
+
+## Web app (live)
+
+- [HomeSteadyLink web app — USB setup](https://homesteadlink.github.io/web-app/): Control the router over USB: connect, list Wi-Fi networks and connect, set up the VPN (WireGuard or Tailscale with an exit node), and manage the device. Chrome and Edge on macOS, Windows, Linux; Android Chrome with a USB cable.
+- [Web app source](https://github.com/HomesteadLink/web-app): Single-file static app (index.html, plain JavaScript + WebUSB, no build step). No setup code in the web flow — physical USB presence is the trust root.
+
+## Product
+
+- [Android app source](https://github.com/HomesteadLink/mobile-app): The downloadable product (Google Play, Android only). BLE control plane: scan, pair, Wi-Fi, VPN, progress, device dashboard. iOS source exists; App Store publish is out of scope.
+- [Firmware source](https://github.com/HomesteadLink/firmware): Runs on Orange Pi Zero 2W. Firmware v1.3 delivered publicly; v1.4.0 adds the FunctionFS USB vendor interface used by the web app.
+- [Firmware v1.3 release](https://github.com/HomesteadLink/firmware/releases/tag/v1.3): Public board image, 559,467,796 bytes, SHA-256 ea0d155c2250c955dae0aab4c7ce57e080051891b51079047c07cf2fcc01f114.
+- [Landing site source](https://github.com/HomesteadLink/landing): Website source; the live site deploys on Netlify and is not live yet, so the waitlist opens with it.
+
+## Status
+
+- [Growth epic](https://github.com/HomesteadLink/mobile-app/issues/39): Goal is 1M Google Play downloads; growth work (ASO, SEO, AI-agent traffic) is sequenced behind firmware delivery, the app physical test session, landing deploy, and Play publish.
+- [Firmware v1.3 delivery](https://github.com/HomesteadLink/firmware/issues/9): Delivered publicly via GitHub Release 2026-11-16 (Cloudflare R2 path bypassed — the account has no R2 subscription).
+- [Mobile app v1](https://github.com/HomesteadLink/mobile-app/issues/1): Android APK + iOS source; physical test session (P1–P16) on a real board and phone is the remaining gate.
+
+## Optional
+
+- [Full product details](https://homesteadlink.github.io/web-app/llms-full.txt): Complete plain-text description of the product, setup flows, requirements, and current status.

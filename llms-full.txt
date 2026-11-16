@@ -1,0 +1,88 @@
+HomeSteadyLink — full product details
+=====================================
+
+What it is
+----------
+HomeSteadyLink is a BLE-provisioned travel router built on the Orange Pi
+Zero 2W. At first boot a phone app pushes Wi-Fi credentials to the device
+over Bluetooth Low Energy; the device joins the Wi-Fi network and brings
+up a VPN behind a kill switch. It is a travel router: one device that
+connects to hotel, cafe, or home Wi-Fi and puts everything behind it on
+a VPN.
+
+The downloadable product is the Android app (Google Play, Android only).
+The app configures the device. iOS source exists; App Store publish is
+out of scope. The product is in alpha with a bunch of alpha testers right
+now and expanding soon. The website's primary action is joining the
+waitlist; the Play app installs and configures the device. Pre-orders
+open when the firmware is delivered and the app is verified on real
+hardware — nobody pays yet.
+
+Two control paths, one product
+------------------------------
+1. Android app over BLE (the main path): scan, pair, Wi-Fi, VPN,
+   progress, device dashboard. The phone app pushes Wi-Fi credentials
+   over BLE at first boot. Source: https://github.com/HomesteadLink/mobile-app
+2. Web app over USB (WebUSB, the second path): connect over a USB cable,
+   list Wi-Fi networks and connect, set up the VPN (WireGuard or
+   Tailscale with an exit node), progress, device. Live at
+   https://homesteadlink.github.io/web-app/ — a single-file static app
+   (index.html, plain JavaScript + WebUSB, no build step).
+   Source: https://github.com/HomesteadLink/web-app
+
+There is no setup code anywhere in the web-app flow: physical USB
+presence is the trust root. The setup code stays for BLE only.
+
+Requirements
+------------
+Web app browsers: Chrome and Edge on macOS, Windows, and Linux; Android
+Chrome with a USB cable. Safari and Firefox have no WebUSB — the fallback
+is the router's Wi-Fi setup page at http://192.168.65.1:8080.
+
+The Android app needs a real board and a real phone for its physical
+test session (checklist P1–P16). Screenshots for the Play listing come
+from real tested flows, never mockups.
+
+Firmware and hardware
+---------------------
+Firmware runs on the Orange Pi Zero 2W and is built from the committed
+tree; the delivered image is a provenance-stamped artifact with size and
+SHA-256 recorded. Source: https://github.com/HomesteadLink/firmware
+
+- v1.3 delivered publicly 2026-11-16 as a GitHub Release:
+  https://github.com/HomesteadLink/firmware/releases/tag/v1.3
+  Asset: homesteadlink-v1.3-orangepizero2w.img.xz, 559,467,796 bytes,
+  SHA-256 ea0d155c2250c955dae0aab4c7ce57e080051891b51079047c07cf2fcc01f114.
+  (Delivered via GitHub Release because the Cloudflare R2 path was
+  blocked — the account has no R2 subscription.)
+- v1.4.0 built 2026-11-15 with a FunctionFS USB vendor interface and
+  the hsl-provisiond daemon (the USB transport the web app uses).
+  Flash plus end-to-end test on real hardware is pending; the image
+  merges to main only after the flash test proves it boots.
+
+The SD-card swap is the only flash path. On-hardware boot is the final
+arbiter — no claim of "works" without a boot on a real board.
+
+Status (2026-11-16)
+-------------------
+- Firmware v1.3: delivered publicly (firmware#9 closed).
+- Mobile app v1: built and emulator-tested; the P1–P16 physical session
+  on a real board and phone is the remaining gate.
+- Web app: live on GitHub Pages since 2026-11-15; all 6 screens verified
+  by headless-Chrome screenshots, 0 console errors. Known v1 gap:
+  Diagnostics is trigger-only (no download yet).
+- Landing site: not live yet (https://homesteadlink.netlify.app is
+  HTTP 404); deploy is blocked on a stale Netlify token only the owner
+  can replace. No SEO work on the landing until it is live.
+- Google Play: no listing yet. No Sentry project yet. Goal: 1M Google
+  Play downloads; acceptance is good Play reviews, no open GitHub
+  issues, and all repeated Sentry issues fixed fundamentally.
+
+Links
+-----
+- Web app (live): https://homesteadlink.github.io/web-app/
+- Android app: https://github.com/HomesteadLink/mobile-app
+- Firmware: https://github.com/HomesteadLink/firmware
+- Firmware v1.3 release: https://github.com/HomesteadLink/firmware/releases/tag/v1.3
+- Landing source: https://github.com/HomesteadLink/landing
+- Growth epic: https://github.com/HomesteadLink/mobile-app/issues/39
