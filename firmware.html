@@ -94,8 +94,11 @@
 <div class="card">
 <h2>4. First boot — save the identity line</h2>
 <p>Put the SD card in the router and power it on.</p>
-<p>At the very first boot, the router prints a line starting with <code>HSL-IDENTITY</code> on the serial console. That line holds your router&rsquo;s serial number, its setup code, its console password, and its Wi-Fi passphrase (ap_passphrase). It is printed on the serial console only at first boot — or again after a factory reset (HSL-RESET).</p>
-<p><b>Copy the whole line and keep it somewhere safe.</b> You will need the setup code and the console password later, and they are not shown anywhere else.</p>
+<p>At the very first boot, the router prints a line starting with <code>HSL-IDENTITY</code> on the serial console. It looks like this:</p>
+<pre>HSL-IDENTITY serial=&lt;serial&gt; setup_code=&lt;code&gt; console_password=&lt;redacted&gt; ap_passphrase=&lt;pass&gt;</pre>
+<p>The line gives you the router&rsquo;s serial number, its setup code, and its Wi-Fi passphrase (ap_passphrase) in full. It is printed on the serial console only at first boot — or again after a factory reset (HSL-RESET).</p>
+<p><b>Copy the whole line (or photograph it) and keep it somewhere safe.</b> You will need the setup code and the Wi-Fi passphrase later.</p>
+<p><b>The console password is NOT on the console:</b> it is printed literally as <code>&lt;redacted&gt;</code> — its value never appears there. Read the console password from the <b>label on the device</b> instead. (It is also stored on the board itself, in <code>/etc/homesteadlink/identity.json</code>.)</p>
 </div>
 
 <div class="card">
