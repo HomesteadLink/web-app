@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HomeSteadyLink — Join the waitlist</title>
+<style>
+  :root { --teal:#0F766E; --dark:#111827; --gray:#6B7280; --line:#E5E7EB;
+          --green:#15803D; --green-bg:#DCFCE7; --page:#F9FAFB; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--page); color:var(--dark); }
+  .col { max-width:720px; margin:0 auto; padding:32px 16px 64px; }
+  header { display:flex; align-items:baseline; justify-content:space-between; }
+  .brand { font-size:20px; font-weight:bold; }
+  .step { font-size:13px; color:var(--gray); }
+  h1 { font-size:24px; margin:16px 0 4px; }
+  .sub { color:var(--gray); font-size:14px; margin:0 0 20px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px 24px; margin-bottom:16px; }
+  .card h2 { font-size:17px; margin:0 0 4px; }
+  .card p { color:var(--gray); font-size:13px; margin:4px 0; }
+  .btn { display:inline-block; border:none; border-radius:24px; padding:14px 28px;
+         font-size:15px; font-weight:bold; cursor:pointer; min-width:200px; text-align:center; }
+  .btn-primary { background:var(--teal); color:#fff; }
+  .note { font-size:11px; color:var(--gray); font-style:italic; margin-top:12px; }
+  .link { color:var(--teal); font-weight:bold; text-decoration:none; }
+  label { display:block; font-size:12px; color:var(--gray); margin:14px 0 6px; }
+  input[type=text], input[type=email], select {
+    width:100%; padding:12px; font-size:15px; border:1px solid #9CA3AF; border-radius:8px; }
+  .pill { display:inline-block; padding:6px 14px; border-radius:15px; font-size:13px; font-weight:bold;
+         background:var(--green-bg); color:var(--green); border:1px solid var(--green); }
+</style>
+</head>
+<body>
+<div class="col">
+<header><span class="brand">⌁ HomeSteadyLink</span><span class="step">Waitlist</span></header>
+<h1>Join the waitlist</h1>
+<p class="sub">The HomeSteadyLink travel router isn&rsquo;t for sale yet. Leave your email and we&rsquo;ll write to you when pre-orders open.</p>
+
+<div class="card" id="thanks" style="display:none">
+<h2><span class="pill">✓&nbsp; You&rsquo;re on the list</span></h2>
+<p>Thanks — we&rsquo;ve got your email. We&rsquo;ll write to you as soon as pre-orders open. No payment is taken now.</p>
+<p><a class="link" href="index.html">← Back to setup</a></p>
+</div>
+
+<div class="card" id="form-card">
+<h2>Pre-order / waitlist signup</h2>
+<p>No payment now — this only saves your place in line. We use your email only for the waitlist.</p>
+<form action="https://formsubmit.co/dzianisvv@gmail.com" method="POST">
+<input type="hidden" name="_subject" value="HomeSteadyLink waitlist signup">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://homesteadlink.github.io/web-app/waitlist.html?thanks=1">
+<label for="name">Name</label>
+<input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name">
+<label for="email">Email</label>
+<input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+<label for="country">Country</label>
+<input type="text" id="country" name="country" autocomplete="country-name" placeholder="Country">
+<label for="devices">How many devices?</label>
+<select id="devices" name="devices">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5 or more">5 or more</option>
+</select>
+<div style="margin-top:20px"><button class="btn btn-primary" type="submit">Join the waitlist</button></div>
+</form>
+<p class="note">On submit you may see a short spam check first. Your email goes to the HomeSteadyLink team only.</p>
+</div>
+
+<p style="font-size:12px;color:var(--gray)"><a class="link" href="index.html">← Back to setup</a> · <a class="link" href="firmware.html">Firmware instructions (v1.3)</a></p>
+</div>
+<script>
+"use strict";
+if (new URLSearchParams(location.search).get("thanks") === "1") {
+  document.getElementById("thanks").style.display = "";
+  document.getElementById("form-card").style.display = "none";
+}
+</script>
+</body>
+</html>
