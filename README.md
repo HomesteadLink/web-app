@@ -19,8 +19,13 @@ product as the Android app, on a second control path.
 - **Status:** Live (Stage 4, 2026-11-15). `index.html` at
   https://homesteadlink.github.io/web-app/ — verified HTTP 200, served
   bytes identical to the repo file. All 6 screens verified by
-  headless-Chrome screenshots (0 console errors). Firmware v1.4.0
-  (FunctionFS USB daemon) building; flash + end-to-end test is Stage 5.
+  headless-Chrome screenshots (0 console errors). `llms.txt` and
+  `llms-full.txt` are live. Firmware v1.4.0 (FunctionFS USB daemon)
+  is **built** (2026-11-15) but not yet released; flash +
+  end-to-end test is Stage 5.
+- **In progress today (2026-11-16, separate agent):** a firmware
+  instructions page and a pre-order signup on this site. They are
+  not linked here — neither exists yet (verified 404).
 
 ## Layout (Stage 4)
 
