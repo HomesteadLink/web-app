@@ -440,7 +440,9 @@ function renderConnect() {
     '<div class="card"><h2>Which browsers work</h2>' +
     '<p>Chrome and Edge on macOS, Windows, and Linux. Android Chrome works with a USB cable.</p>' +
     '<p>Safari can\'t use USB — use the router\'s Wi-Fi setup page instead (see below).</p></div>' +
-    '<p style="font-size:12px;color:var(--gray)">No USB? Open the router\'s Wi-Fi setup page: join the “HomeSteady-…” network, then open<br><a class="link" href="' + FALLBACK_URL + '">' + FALLBACK_URL + '</a></p>';
+    '<p style="font-size:12px;color:var(--gray)">No USB? Open the router\'s Wi-Fi setup page: join the “HomeSteady-…” network, then open<br><a class="link" href="' + FALLBACK_URL + '">' + FALLBACK_URL + '</a></p>' +
+    '<div class="card"><h2>Setting up a new router?</h2>' +
+    '<p>First install the firmware on the SD card: <a class="link" href="firmware.html">Firmware instructions (v1.3)</a> — download, check, flash, first boot.</p></div>';
   document.getElementById("btn-connect").onclick = connectDevice;
 }
 function renderWifi() {
