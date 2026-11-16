@@ -17,7 +17,7 @@
 ## Status
 
 - [Growth epic](https://github.com/HomesteadLink/mobile-app/issues/39): Goal is 1M Google Play downloads; growth work (ASO, SEO, AI-agent traffic) is sequenced behind firmware delivery, the app physical test session, landing deploy, and Play publish.
-- [Firmware v1.3 delivery](https://github.com/HomesteadLink/firmware/issues/9): Delivered publicly via GitHub Release 2026-11-16 (Cloudflare R2 path bypassed — the account has no R2 subscription).
+- [Firmware v1.3 release](https://github.com/HomesteadLink/firmware/releases/tag/v1.3): Delivered publicly via GitHub Release 2026-11-16 (Cloudflare R2 path bypassed — the account has no R2 subscription).
 - [Mobile app v1](https://github.com/HomesteadLink/mobile-app/issues/1): Android APK + iOS source; physical test session (P1–P16) on a real board and phone is the remaining gate.
 
 ## Optional
