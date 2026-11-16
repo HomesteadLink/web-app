@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HomeSteadyLink — Firmware instructions (v1.3)</title>
+<style>
+  :root { --teal:#0F766E; --dark:#111827; --gray:#6B7280; --line:#E5E7EB;
+          --green:#15803D; --green-bg:#DCFCE7; --red:#DC2626; --amber:#B45309;
+          --amber-bg:#FEF3C7; --page:#F9FAFB; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--page); color:var(--dark); }
+  .col { max-width:720px; margin:0 auto; padding:32px 16px 64px; }
+  header { display:flex; align-items:baseline; justify-content:space-between; }
+  .brand { font-size:20px; font-weight:bold; }
+  .step { font-size:13px; color:var(--gray); }
+  h1 { font-size:24px; margin:16px 0 4px; }
+  .sub { color:var(--gray); font-size:14px; margin:0 0 20px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px 24px; margin-bottom:16px; }
+  .card h2 { font-size:17px; margin:0 0 4px; }
+  .card p { color:var(--gray); font-size:13px; margin:4px 0; }
+  .card li { color:var(--gray); font-size:13px; margin:4px 0; }
+  .btn { display:inline-block; border:none; border-radius:24px; padding:14px 28px;
+         font-size:15px; font-weight:bold; cursor:pointer; min-width:200px; text-align:center; }
+  .btn-primary { background:var(--teal); color:#fff; text-decoration:none; }
+  .btn-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+  .note { font-size:11px; color:var(--gray); font-style:italic; margin-top:12px; }
+  .link { color:var(--teal); font-weight:bold; text-decoration:none; }
+  .warn { background:var(--amber-bg); border:1px solid var(--amber); border-radius:12px;
+          padding:16px 20px; margin-bottom:16px; font-size:13px; color:var(--dark); }
+  code { font-family:monospace; font-size:12px; background:#F3F4F6; padding:2px 6px; border-radius:4px;
+         word-break:break-all; }
+  pre { background:#0F172A; color:#7DD3FC; border-radius:8px; padding:16px;
+        font-family:monospace; font-size:12px; white-space:pre-wrap; word-break:break-all; }
+  ol.steps li { color:var(--dark); font-size:14px; margin:8px 0; }
+</style>
+</head>
+<body>
+<div class="col">
+<header><span class="brand">⌁ HomeSteadyLink</span><span class="step">Firmware v1.3</span></header>
+<h1>Install the firmware</h1>
+<p class="sub">Put HomeSteadyLink firmware v1.3 on your router&rsquo;s SD card, then start it for the first time. The board is an Orange Pi Zero&nbsp;2W.</p>
+
+<div class="warn"><b>Swapping the SD card is the only way to install or update the firmware.</b> There is no update over the internet and no update from the setup page. To change the firmware, write a new card and swap it in.</div>
+
+<div class="card">
+<h2>1. Download the firmware</h2>
+<p>Download the v1.3 image from the release page:</p>
+<p><a class="link" href="https://github.com/HomesteadLink/firmware/releases/tag/v1.3">HomeSteadyLink firmware v1.3 — release page</a></p>
+<p>On that page, download this file:</p>
+<p><code>homesteadlink-v1.3-orangepizero2w.img.xz</code> (about 559&nbsp;MB)</p>
+<p>Do not download any other version from anywhere else. v1.4.0 is not released yet and is not available to download.</p>
+</div>
+
+<div class="card">
+<h2>2. Check the download is genuine</h2>
+<p>Before you write the card, check the file&rsquo;s checksum. The checksum is a fingerprint of the file — if it matches, the download is complete and untampered.</p>
+<p>The correct SHA-256 checksum for <code>homesteadlink-v1.3-orangepizero2w.img.xz</code> is:</p>
+<pre>ea0d155c2250c955dae0aab4c7ce57e080051891b51079047c07cf2fcc01f114</pre>
+<p>Run one of these in a terminal, in the folder where you downloaded the file:</p>
+<p><b>macOS:</b></p>
+<pre>shasum -a 256 homesteadlink-v1.3-orangepizero2w.img.xz</pre>
+<p><b>Linux:</b></p>
+<pre>sha256sum homesteadlink-v1.3-orangepizero2w.img.xz</pre>
+<p><b>Windows (PowerShell):</b></p>
+<pre>Get-FileHash homesteadlink-v1.3-orangepizero2w.img.xz -Algorithm SHA256</pre>
+<p>Compare the output with the checksum above, character by character. If it does not match exactly, delete the file and download it again — do not flash it.</p>
+</div>
+
+<div class="card">
+<h2>3. Write the image to the SD card</h2>
+<p>You need a microSD card and a card reader (built into your computer or a USB adapter). Pick one of the two ways below.</p>
+
+<h2 style="margin-top:16px">Option A — Balena Etcher (easiest, all systems)</h2>
+<ol class="steps">
+<li>Download and install Etcher from <a class="link" href="https://etcher.balena.io/">etcher.balena.io</a>.</li>
+<li>Put the microSD card in the reader and open Etcher.</li>
+<li>Click <b>Flash from file</b> and pick <code>homesteadlink-v1.3-orangepizero2w.img.xz</code>. Etcher can flash the compressed file directly — you do not need to unpack it first.</li>
+<li>Click <b>Select target</b> and pick the SD card. Double-check it is the card and not your computer&rsquo;s hard drive.</li>
+<li>Click <b>Flash!</b> and wait until Etcher says it is done, then remove the card safely.</li>
+</ol>
+
+<h2 style="margin-top:16px">Option B — dd (macOS / Linux)</h2>
+<ol class="steps">
+<li>Unpack the download first: <code>xz -dk homesteadlink-v1.3-orangepizero2w.img.xz</code> — this leaves a <code>.img</code> file next to it.</li>
+<li>Find the card&rsquo;s device name. On macOS run <code>diskutil list</code>; on Linux run <code>lsblk</code>. Note the device for the SD card (macOS: something like <code>/dev/disk2</code>; Linux: something like <code>/dev/sdX</code> or <code>/dev/mmcblk0</code>).</li>
+<li>Unmount the card. On macOS: <code>diskutil unmountDisk /dev/diskN</code> (replace N with your card&rsquo;s number). On Linux: <code>sudo umount /dev/sdX*</code> (replace sdX with your card&rsquo;s device).</li>
+<li>Write the image: <code>sudo dd if=homesteadlink-v1.3-orangepizero2w.img of=/dev/diskN bs=4M status=progress conv=fsync</code> — replace <code>/dev/diskN</code> with your card&rsquo;s device from step 2.</li>
+<li>Wait until dd finishes, then eject the card safely: macOS <code>diskutil eject /dev/diskN</code>, Linux <code>sudo eject /dev/sdX</code>.</li>
+</ol>
+<div class="warn"><b>Be careful with dd:</b> writing to the wrong device erases that drive completely. Check the device name twice before you press Enter.</div>
+</div>
+
+<div class="card">
+<h2>4. First boot — save the identity line</h2>
+<p>Put the SD card in the router and power it on.</p>
+<p>At the very first boot, the router prints a line starting with <code>HSL-IDENTITY</code> on the serial console. That line holds your router&rsquo;s serial number, its setup code, its console password, and its Wi-Fi passphrase (ap_passphrase). It is printed on the serial console only at first boot — or again after a factory reset (HSL-RESET).</p>
+<p><b>Copy the whole line and keep it somewhere safe.</b> You will need the setup code and the console password later, and they are not shown anywhere else.</p>
+</div>
+
+<div class="card">
+<h2>5. Set the router up</h2>
+<p>Once the router has booted, set up Wi-Fi and the VPN on the setup page:</p>
+<div class="btn-row"><a class="btn btn-primary" href="index.html">Open the setup page</a></div>
+<p class="note">Plug the router into this computer with a USB cable and follow the steps there. No setup code is needed on that page — the USB connection itself is the proof the router is yours.</p>
+</div>
+
+<p style="font-size:12px;color:var(--gray)"><a class="link" href="index.html">← Back to setup</a> · Firmware v1.3 for Orange Pi Zero 2W · <a class="link" href="https://github.com/HomesteadLink/firmware/releases/tag/v1.3">Release page</a></p>
+</div>
+</body>
+</html>
