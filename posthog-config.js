@@ -7,5 +7,5 @@
  * US Cloud is assumed; if the project is in EU, change the host
  * below to https://eu.i.posthog.com.
  */
-window.HSL_POSTHOG_API_KEY = "";
+window.HSL_POSTHOG_API_KEY = "phc_qrZMh8cMDFCDbjsXvhwN4Lv479SfQuPkXddd4JdsDjrQ";
 window.HSL_POSTHOG_HOST = "https://us.i.posthog.com";
