@@ -75,6 +75,8 @@
 <body>
 <div class="col" id="app"></div>
 <div id="overlay-root"></div>
+<script src="posthog-config.js"></script>
+<script src="analytics.js"></script>
 <script>
 "use strict";
 /* HomeSteadyLink web app — USB (WebUSB) control.
@@ -175,6 +177,8 @@ async function connectDevice() {
     device.ondisconnect = () => { disconnect("The USB cable was unplugged."); };
     S.info = await request({ op: "get_info" });
     logLine("usb", "device opened: " + (S.info.model || "HomeSteadyLink"));
+    // Funnel: router connected over USB. No-op until a PostHog key is set.
+    if (window.hslAnalytics) hslAnalytics.capture("webapp_connected");
     S.step = "wifi";
     render();
     await scanWifi();
@@ -235,6 +239,8 @@ async function submitWifiAndVpn() {
       if (v.error) throw new Error(v.error + (v.detail ? ": " + v.detail : ""));
     }
     S.step = "progress";
+    // Funnel: Wi-Fi (+VPN) submitted, provisioning started.
+    if (window.hslAnalytics) hslAnalytics.capture("webapp_provision_started", { vpn: S.vpnChoice || "none" });
     S.progress = [
       { label: "USB link", state: "done" },
       { label: "Joining Wi-Fi", state: "active" },
@@ -284,6 +290,9 @@ function updateProgress(st) {
   if (st.state === "online" || st.state === "online_no_vpn") {
     stopPolling();
     logLine("status", st.state);
+    // Funnel: first online per browser = onboarding_done +
+    // core_action_done; later times = core_action_repeat.
+    if (window.hslAnalytics) hslAnalytics.coreActionDone({ surface: "webapp", vpn_active: st.state === "online" });
     S.step = "device";
     render();
     startDevicePolling();

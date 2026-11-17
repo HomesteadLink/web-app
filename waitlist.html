@@ -70,11 +70,17 @@
 
 <p style="font-size:12px;color:var(--gray)"><a class="link" href="index.html">← Back to setup</a> · <a class="link" href="firmware.html">Firmware instructions (v1.3)</a></p>
 </div>
+<script src="posthog-config.js"></script>
+<script src="analytics.js"></script>
 <script>
 "use strict";
 if (new URLSearchParams(location.search).get("thanks") === "1") {
   document.getElementById("thanks").style.display = "";
   document.getElementById("form-card").style.display = "none";
+  // Confirmed waitlist signup: FormSubmit redirects here (?thanks=1)
+  // after a successful signup. (Capturing on submit would not flush —
+  // the form POST navigates away immediately.)
+  if (window.hslAnalytics) hslAnalytics.capture("waitlist_signup", { surface: "webapp" });
 }
 </script>
 </body>
