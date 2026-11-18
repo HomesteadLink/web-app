@@ -7,11 +7,19 @@ cyan #00E5FF, style Bold, tagline "Your home network, anywhere you go".
 
 | # | File | Headline | Screen |
 |---|------|----------|--------|
-| 1 | 01-scan-home-network.png | Your home network, anywhere you go | Scan — finds the router, Connect |
-| 2 | 02-pair-one-code.png | One code pairs your router | Pair — 6-digit setup code |
-| 3 | 03-wifi-pick-network.png | Pick any Wi-Fi, join in seconds | Wi-Fi — pick network, enter password |
-| 4 | 04-vpn-kill-switch.png | VPN on. Kill switch on. Nothing leaks. | VPN — WireGuard/Tailscale, masked config |
-| 5 | 05-device-control.png | Control your router from anywhere | Device — status, VPN toggle, controls |
+| 1 | 01-scan-home-network.png | Home network, anywhere you go | Scan — finds the router, Connect |
+| 2 | 02-vpn-kill-switch.png | Kill switch on. Nothing leaks. | VPN — WireGuard/Tailscale, masked config |
+| 3 | 03-device-control.png | Control your router from anywhere | Device — status, VPN toggle, controls |
+| 4 | 04-wifi-pick-network.png | Join any Wi-Fi in seconds | Wi-Fi — pick network, enter password |
+| 5 | 05-pair-one-code.png | One code pairs your router | Pair — 6-digit setup code |
+
+Order follows the app-store-optimization skill: slot 1 primary value,
+slot 2 core differentiator (VPN + kill switch), slot 3 next strongest
+feature (device control), slots 4–5 supporting setup steps. File
+number = Play slot number — upload in filename order. Every caption
+is benefit-oriented, 2–5 words. Card 1's headline is the brand
+tagline trimmed to 5 words ("Your" dropped); the verbatim 6-word
+tagline stays on the feature graphic and in the listing copy.
 
 ## Source (provenance — read before replacing)
 
@@ -41,6 +49,15 @@ feature shown that doesn't exist; no verified-pairing claim), Check 3
 brand (same two colors, same tagline, Bold, same wordmark as the
 feature graphic v3 and the landing). Headlines checked by reading the
 renders at full size and at 300 px (Play search size).
+
+Re-ordered 2026-11-18 per the app-store-optimization skill (slot 1
+primary value, slot 2 core differentiator, slot 3 next strongest
+feature; all captions benefit-oriented, 2–5 words). First-fold
+preview (slots 1–3 side by side at 300 px) verified: three distinct
+benefits, captions readable, no onboarding/splash screen in the
+first 3. Card 1's headline is the tagline trimmed to 5 words; the
+verbatim 6-word tagline stays on the feature graphic and in the
+listing copy.
 
 ## Build
 
