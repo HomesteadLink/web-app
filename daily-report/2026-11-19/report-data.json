@@ -1,0 +1,575 @@
+{
+ "date": "2026-11-19",
+ "gantt24": [
+  {
+   "end": "2026-11-18T10:37",
+   "label": "Daily report 18 Nov",
+   "start": "2026-11-18T10:37"
+  },
+  {
+   "end": "2026-11-18T10:50",
+   "label": "BLE scan 10:50 (not found)",
+   "start": "2026-11-18T10:50"
+  },
+  {
+   "end": "2026-11-18T12:32",
+   "label": "Supervisor 12:32 run",
+   "start": "2026-11-18T12:32"
+  },
+  {
+   "end": "2026-11-18T12:39",
+   "label": "BLE scan 12:39 (not found)",
+   "start": "2026-11-18T12:39"
+  },
+  {
+   "end": "2026-11-18T16:32",
+   "label": "Supervisor 16:32 run",
+   "start": "2026-11-18T16:32"
+  },
+  {
+   "end": "2026-11-18T17:32",
+   "label": "Supervisor 17:32 run",
+   "start": "2026-11-18T17:32"
+  },
+  {
+   "end": "2026-11-18T18:32",
+   "label": "Supervisor 18:32 run",
+   "start": "2026-11-18T18:32"
+  },
+  {
+   "end": "2026-11-18T19:32",
+   "label": "Supervisor 19:32 run",
+   "start": "2026-11-18T19:32"
+  },
+  {
+   "end": "2026-11-18T19:35",
+   "label": "BLE scan 19:35 (not found)",
+   "start": "2026-11-18T19:35"
+  },
+  {
+   "end": "2026-11-18T20:32",
+   "label": "Supervisor 20:32 run",
+   "start": "2026-11-18T20:32"
+  },
+  {
+   "end": "2026-11-18T21:32",
+   "label": "Supervisor 21:32 run",
+   "start": "2026-11-18T21:32"
+  },
+  {
+   "end": "2026-11-18T22:32",
+   "label": "Supervisor 22:32 run",
+   "start": "2026-11-18T22:32"
+  },
+  {
+   "end": "2026-11-18T23:04",
+   "label": "Den: publish as early access",
+   "start": "2026-11-18T23:04"
+  },
+  {
+   "end": "2026-11-18T23:06",
+   "label": "BLE scan 23:06 (not found)",
+   "start": "2026-11-18T23:06"
+  },
+  {
+   "end": "2026-11-18T23:09",
+   "label": "Den: app as marketing",
+   "start": "2026-11-18T23:09"
+  },
+  {
+   "end": "2026-11-18T23:19",
+   "label": "Mobile PR #76 merged",
+   "start": "2026-11-18T23:19"
+  },
+  {
+   "end": "2026-11-18T23:32",
+   "label": "Supervisor 23:32 run",
+   "start": "2026-11-18T23:32"
+  },
+  {
+   "end": "2026-11-19T00:09",
+   "label": "Play Console sign-in fixed",
+   "start": "2026-11-19T00:09"
+  },
+  {
+   "end": "2026-11-19T00:12",
+   "label": "Mobile PR #78 merged",
+   "start": "2026-11-19T00:12"
+  },
+  {
+   "end": "2026-11-19T00:18",
+   "label": "Console forms done",
+   "start": "2026-11-19T00:18"
+  },
+  {
+   "end": "2026-11-19T00:24",
+   "label": "Issue #77 closed",
+   "start": "2026-11-19T00:24"
+  },
+  {
+   "end": "2026-11-19T00:25",
+   "label": "Signed AAB v3 built",
+   "start": "2026-11-19T00:25"
+  },
+  {
+   "end": "2026-11-19T00:32",
+   "label": "Supervisor 00:32 run",
+   "start": "2026-11-19T00:32"
+  },
+  {
+   "end": "2026-11-19T00:39",
+   "label": "BLE scan #32 (not found)",
+   "start": "2026-11-19T00:39"
+  },
+  {
+   "end": "2026-11-19T00:43",
+   "label": "Promotion staging done",
+   "start": "2026-11-19T00:43"
+  },
+  {
+   "end": "2026-11-19T00:47",
+   "label": "First app install/open/order",
+   "start": "2026-11-19T00:44"
+  },
+  {
+   "end": "2026-11-19T01:33",
+   "label": "Daily loop 01:17-01:33",
+   "start": "2026-11-19T01:17"
+  },
+  {
+   "end": "2026-11-19T01:32",
+   "label": "Supervisor 01:32 run",
+   "start": "2026-11-19T01:32"
+  },
+  {
+   "end": "2026-11-19T01:47",
+   "label": "Gate-check lead 01:40-01:47",
+   "start": "2026-11-19T01:40"
+  },
+  {
+   "end": "2026-11-19T01:44",
+   "label": "BLE scan #33 (not found)",
+   "start": "2026-11-19T01:44"
+  },
+  {
+   "label": "CEO daily review",
+   "start": "2026-11-19T02:00",
+   "end": "2026-11-19T02:00"
+  },
+  {
+   "end": "2026-11-19T02:28",
+   "label": "Landing setup-demo fix",
+   "start": "2026-11-19T02:28"
+  },
+  {
+   "end": "2026-11-19T02:32",
+   "label": "Supervisor 02:32 run (started)",
+   "start": "2026-11-19T02:32"
+  },
+  {
+   "end": "2026-11-19T02:34",
+   "label": "Landing layout repair",
+   "start": "2026-11-19T02:34"
+  },
+  {
+   "end": "2026-11-19T02:38",
+   "label": "ASO cards v2 + Pages deploy",
+   "start": "2026-11-19T02:38"
+  },
+  {
+   "end": "2026-11-19T02:40",
+   "label": "Landing tester signup live",
+   "start": "2026-11-19T02:40"
+  },
+  {
+   "end": "2026-11-19T02:42",
+   "label": "PostHog 109 events",
+   "start": "2026-11-19T02:42"
+  },
+  {
+   "label": "BLE scan #34 (not found)",
+   "start": "2026-11-19T02:48",
+   "end": "2026-11-19T02:48"
+  },
+  {
+   "end": "2026-11-19T02:51",
+   "label": "Waitlist re-measured: 0",
+   "start": "2026-11-19T02:51"
+  },
+  {
+   "end": "2026-11-19T02:54",
+   "label": "Daily report 19 Nov (this run)",
+   "start": "2026-11-19T02:54"
+  },
+  {
+   "label": "Supervisor 03:32 run",
+   "start": "2026-11-19T03:32",
+   "end": "2026-11-19T03:32"
+  },
+  {
+   "label": "BLE scan #35 (not found)",
+   "start": "2026-11-19T03:39",
+   "end": "2026-11-19T03:39"
+  },
+  {
+   "label": "Supervisor 04:32 run",
+   "start": "2026-11-19T04:32",
+   "end": "2026-11-19T04:32"
+  },
+  {
+   "label": "firmware#5 closed",
+   "start": "2026-11-19T04:39",
+   "end": "2026-11-19T04:39"
+  },
+  {
+   "label": "BLE scan #36 (not found)",
+   "start": "2026-11-19T04:42",
+   "end": "2026-11-19T04:42"
+  },
+  {
+   "label": "Supervisor 05:32 run",
+   "start": "2026-11-19T05:32",
+   "end": "2026-11-19T05:32"
+  },
+  {
+   "label": "BLE scan #37 (not found)",
+   "start": "2026-11-19T05:53",
+   "end": "2026-11-19T05:53"
+  },
+  {
+   "label": "Supervisor 06:32 run",
+   "start": "2026-11-19T06:32",
+   "end": "2026-11-19T06:32"
+  },
+  {
+   "label": "BLE scan #38 (not found)",
+   "start": "2026-11-19T06:43",
+   "end": "2026-11-19T06:43"
+  },
+  {
+   "label": "Supervisor 07:32 run",
+   "start": "2026-11-19T07:32",
+   "end": "2026-11-19T07:32"
+  },
+  {
+   "label": "BLE scan #39 (not found)",
+   "start": "2026-11-19T07:43",
+   "end": "2026-11-19T07:43"
+  },
+  {
+   "label": "Supervisor 08:32 run",
+   "start": "2026-11-19T08:32",
+   "end": "2026-11-19T08:32"
+  },
+  {
+   "label": "BLE scan #40 (not found)",
+   "start": "2026-11-19T08:41",
+   "end": "2026-11-19T08:41"
+  },
+  {
+   "label": "Den landing push (globe removed)",
+   "start": "2026-11-19T09:20",
+   "end": "2026-11-19T09:20"
+  },
+  {
+   "label": "Supervisor 09:32 run",
+   "start": "2026-11-19T09:32",
+   "end": "2026-11-19T09:32"
+  },
+  {
+   "label": "BLE scan #41 (not found)",
+   "start": "2026-11-19T09:42",
+   "end": "2026-11-19T09:42"
+  },
+  {
+   "label": "Supervisor 10:32 run (in progress)",
+   "start": "2026-11-19T10:32",
+   "end": "2026-11-19T10:32"
+  },
+  {
+   "label": "BLE scan #42 (not found)",
+   "start": "2026-11-19T10:37",
+   "end": "2026-11-19T10:37"
+  },
+  {
+   "label": "Daily report 19 Nov (this run)",
+   "start": "2026-11-19T10:37",
+   "end": "2026-11-19T10:37"
+  }
+ ],
+ "gantt30": [
+  {
+   "end": "2026-10-31",
+   "label": "Firmware v1 image (#6)",
+   "start": "2026-10-31",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-05",
+   "label": "GATT fixes (#4, #5, #6)",
+   "start": "2026-11-05",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-06",
+   "label": "Emulator walk fixes, #10 chain",
+   "start": "2026-11-05",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-07",
+   "label": "CI: iOS target compile (#37)",
+   "start": "2026-11-07",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-13",
+   "label": "Firmware v1.3 rebuilt, Stage 6 PASS",
+   "start": "2026-11-12",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-13",
+   "label": "UI defects #41 fixed (PR #43, #44)",
+   "start": "2026-11-13",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-13",
+   "label": "PrivateKey masked #42 (PR #47)",
+   "start": "2026-11-13",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-13",
+   "label": "Landing rewrite merged (PR #4)",
+   "start": "2026-11-13",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-14",
+   "label": "Emulator walk VPN fix #48",
+   "start": "2026-11-13",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-14",
+   "label": "SIMULATED badge fix #51 (PR #52)",
+   "start": "2026-11-14",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-14",
+   "label": "Stop VPN icon fix #53 (PR #54)",
+   "start": "2026-11-14",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-14",
+   "label": "PRD delivered in Notion (6 screens)",
+   "start": "2026-11-14",
+   "workstream": "Discover"
+  },
+  {
+   "end": "2026-11-15",
+   "label": "PRD wireframes rendered (PR #55)",
+   "start": "2026-11-14",
+   "workstream": "Discover"
+  },
+  {
+   "end": "2026-11-16",
+   "label": "Web app live on GitHub Pages",
+   "start": "2026-11-15",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-16",
+   "label": "Firmware v1.4.0 built, verified",
+   "start": "2026-11-15",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-16",
+   "label": "Firmware v1.3 delivered (Release)",
+   "start": "2026-11-16",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-16",
+   "label": "Firmware #9 closed",
+   "start": "2026-11-16",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-16",
+   "label": "llms.txt shipped (PR #1)",
+   "start": "2026-11-16",
+   "workstream": "Growth"
+  },
+  {
+   "end": "2026-11-16",
+   "label": "Play internal track live (v2 1.0)",
+   "start": "2026-11-16",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "Landing live on Cloudflare Pages",
+   "start": "2026-11-16",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-16",
+   "label": "Waitlist page live (web-app PR #8)",
+   "start": "2026-11-16",
+   "workstream": "Growth"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "Search Console verified",
+   "start": "2026-11-17",
+   "workstream": "Growth"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "Goal/KPI page created on Notion",
+   "start": "2026-11-17",
+   "workstream": "Measure"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "Landing #17 stale-deploy fix",
+   "start": "2026-11-17",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "P1-P16 checklist corrected",
+   "start": "2026-11-17",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "Simplicity S1-S6 implemented (PR #65)",
+   "start": "2026-11-17",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "Wireframes redrawn post-simplicity (PR #67)",
+   "start": "2026-11-17",
+   "workstream": "Discover"
+  },
+  {
+   "end": "2026-11-17",
+   "label": "build-wireframes.py retired (#68)",
+   "start": "2026-11-17",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-18",
+   "label": "Play listing package merged (PR #70)",
+   "start": "2026-11-18",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-18",
+   "label": "PostHog instrumentation merged (3 surfaces)",
+   "start": "2026-11-18",
+   "workstream": "Measure"
+  },
+  {
+   "end": "2026-11-18",
+   "label": "Contact email fixed (#73, #19)",
+   "start": "2026-11-18",
+   "workstream": "Growth"
+  },
+  {
+   "end": "2026-11-18",
+   "label": "Landing PostHog activation",
+   "start": "2026-11-18",
+   "workstream": "Measure"
+  },
+  {
+   "end": "2026-11-19",
+   "label": "Play listing draft + forms + AAB v3",
+   "start": "2026-11-19",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-19",
+   "label": "App-as-marketing merged (PR #78)",
+   "start": "2026-11-19",
+   "workstream": "Build"
+  },
+  {
+   "end": "2026-11-19",
+   "label": "ASO cards v2 regenerated",
+   "start": "2026-11-19",
+   "workstream": "Growth"
+  },
+  {
+   "end": "2026-11-19",
+   "label": "Landing redesign + tester signup",
+   "start": "2026-11-19",
+   "workstream": "Publish"
+  },
+  {
+   "end": "2026-11-19",
+   "label": "PostHog 122 events, first app install/open",
+   "start": "2026-11-19",
+   "workstream": "Measure"
+  },
+  {
+   "workstream": "Growth",
+   "label": "firmware#2 closed (domain, NO-PAY)",
+   "start": "2026-11-19",
+   "end": "2026-11-19"
+  },
+  {
+   "workstream": "Growth",
+   "label": "firmware#5 closed (marketing email)",
+   "start": "2026-11-19",
+   "end": "2026-11-19"
+  },
+  {
+   "workstream": "Publish",
+   "label": "Den landing push: globe section removed",
+   "start": "2026-11-19",
+   "end": "2026-11-19"
+  }
+ ],
+ "kpi": [
+  {
+   "evidence": "internal track only, 0 public installs",
+   "name": "1M app downloads",
+   "status": "unproven"
+  },
+  {
+   "evidence": "0 pre-orders, 0 waitlist signups",
+   "name": "$1M in preorders",
+   "status": "unproven"
+  },
+  {
+   "evidence": "no public listing, no reviews",
+   "name": "Good Play reviews",
+   "status": "unproven"
+  },
+  {
+   "evidence": "5 open issues, 0 open PRs",
+   "name": "No open GitHub issues",
+   "status": "unproven"
+  },
+  {
+   "evidence": "no Sentry in app yet",
+   "name": "Sentry repeats fixed",
+   "status": "unproven"
+  },
+  {
+   "evidence": "5 open issues",
+   "name": "No bug reports",
+   "status": "unproven"
+  }
+ ],
+ "product": "HomeSteadyLink"
+}
